@@ -120,13 +120,13 @@
 
                                         <div class="product-price">
                                             @if($product->product_discount_price == null)
-                                                <ins class="new-price">৳ {{number_format($product->product_regular_price)}}</ins>
+                                                <ins class="new-price">£ {{number_format($product->product_regular_price)}}</ins>
 
                                             @elseif(count($attribute_products) > 0)
                                                 <div id="getPrice" class="product-price" ><ins class="new-price">Please Select Varient</ins></div>
                                             @else
-                                                <ins class="new-price">৳ {{number_format($product->product_discount_price)}}</ins>
-                                                <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                <ins class="new-price">£ {{number_format($product->product_discount_price)}}</ins>
+                                                <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                             @endif
                                         </div>
 
@@ -161,13 +161,13 @@
                                         @endif
 
 {{--                                            @if($product->product_discount_price == null)--}}
-{{--                                            <div  class="product-price" ><ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins></div>--}}
+{{--                                            <div  class="product-price" ><ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins></div>--}}
 
 {{--                                                @elseif(count($attribute_products) > 0)--}}
 {{--                                                <div id="getPrice" class="product-price" ><ins class="new-price">Please Select Varient</ins></div>--}}
 {{--                                            @else--}}
-{{--                                            <div  class="product-price" ><ins class="new-price"> ৳ {{ number_format($product->product_discount_price) }}</ins></div>--}}
-{{--                                            <div><del class="product-price"><ins class="new-price"> ৳ {{number_format($product->product_regular_price)}}</ins></del></div>--}}
+{{--                                            <div  class="product-price" ><ins class="new-price"> £ {{ number_format($product->product_discount_price) }}</ins></div>--}}
+{{--                                            <div><del class="product-price"><ins class="new-price"> £ {{number_format($product->product_regular_price)}}</ins></del></div>--}}
 {{--                                            @endif--}}
                                         @if($avarageStarRating>0)
                                             <div class="ratings-container">
@@ -277,7 +277,7 @@
                                     <a href="#product-tab-description" class="nav-link active">Description</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
+                                    <a href="#product-tab-vendor" class="nav-link">Seller Info</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#product-tab-reviews" class="nav-link">Customer Reviews </a>
@@ -365,8 +365,12 @@
                                                 </li>
                                             </ul>
                                             <a href="{{route('single.brand',encrypt($brandImage->id))}}"
-                                               class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
-                                                Store<i class="w-icon-long-arrow-right"></i></a>
+                                               class="btn btn-dark btn-link btn-underline btn-icon-right" style="margin-right: 30px">Visit
+                                                Store<i class="w-icon-long-arrow-right"></i>
+                                            </a>
+                                            <a target="_blank" href="{{ URL('/chatify/'.$brandImage->user->id)}}"
+                                                class="btn btn-dark btn-link btn-underline btn-icon-right">Contact Seller<i class="w-icon-long-arrow-right"></i>
+                                             </a>
                                         </div>
                                     </div>
                                 </div>
@@ -665,10 +669,10 @@
                                                         </div>
                                                         <div class="product-price">
                                                             @if($brand_product->product_discount_price == null)
-                                                                <ins class="new-price">৳ {{ number_format($brand_product->product_regular_price) }}</ins>
+                                                                <ins class="new-price">£ {{ number_format($brand_product->product_regular_price) }}</ins>
                                                             @else
-                                                                <ins class="new-price">৳ {{ number_format($brand_product->product_discount_price )}}</ins>
-                                                                <del class="old-price">৳ {{number_format($brand_product->product_regular_price)}}</del>
+                                                                <ins class="new-price">£ {{ number_format($brand_product->product_discount_price )}}</ins>
+                                                                <del class="old-price">£ {{number_format($brand_product->product_regular_price)}}</del>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -797,10 +801,10 @@
                                                 </div>
                                                 <div class="product-price">
                                                     @if($related_product->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($related_product->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($related_product->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($related_product->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($related_product->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($related_product->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($related_product->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
                                             </div>
@@ -930,10 +934,10 @@
                                                             <div class="product-pa-wrapper">
                                                                 <div class="product-price">
                                                                     @if($eachProduct->product_discount_price == null)
-                                                                        <ins class="new-price">৳ {{number_format($eachProduct->product_regular_price)}}</ins>
+                                                                        <ins class="new-price">£ {{number_format($eachProduct->product_regular_price)}}</ins>
                                                                     @else
-                                                                        <ins class="new-price">৳ {{number_format($eachProduct->product_discount_price)}}</ins>
-                                                                        <del class="old-price">৳ {{number_format($eachProduct->product_regular_price)}}</del>
+                                                                        <ins class="new-price">£ {{number_format($eachProduct->product_discount_price)}}</ins>
+                                                                        <del class="old-price">£ {{number_format($eachProduct->product_regular_price)}}</del>
                                                                     @endif
                                                                 </div>
                                                             </div>

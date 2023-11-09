@@ -142,7 +142,7 @@
                                         <td>{{$order_deatail->product_qty}}</td>
                                         <td>{{ number_format( $order_deatail->product_price * $order_deatail->product_qty,2)}}</td>
                                         @if(isset($order_deatail->brandCommission->percentage))
-                                            <td>৳ {{ number_format($totalProPrice * $order_deatail->brandCommission->percentage/100,2)}}</td>
+                                            <td>£ {{ number_format($totalProPrice * $order_deatail->brandCommission->percentage/100,2)}}</td>
                                         @else
                                             <td class="text-danger">Commission not set</td>
                                         @endif

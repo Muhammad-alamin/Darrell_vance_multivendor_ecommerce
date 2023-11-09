@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>Wolmart eCommmerce Marketplace HTML Template</title>
+    <title>Afribaaar online Shop</title>
 
     <meta name="keywords" content="Marketplace ecommerce responsive HTML5 Template" />
     <meta name="description" content="Wolmart is powerful marketplace &amp; ecommerce responsive Html5 Template.">
@@ -75,28 +75,37 @@
 
 <body>
 <div class="page-wrapper">
-    <h1 class="d-none">Wolmart - Responsive Marketplace HTML Template</h1>
+    <h1 class="d-none">Welcome to Afribazaar Online Shop!</h1>
     <!-- Start of Header -->
     <header class="header">
-        <div class="header-top header-border">
+        <div class="header-top">
             <div class="container">
                 <div class="header-left">
-                    <p class="welcome-msg">Welcome to Wolmart Store message or remove it!</p>
+                    <p class="welcome-msg">Welcome to Afribazaar Online Shop!</p>
                 </div>
                 <div class="header-right">
                     <!-- End of DropDown Menu -->
 
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
-                    <a href="blog.html" class="d-lg-show">Blog</a>
-                    <a href="contact-us.html" class="d-lg-show">Contact Us</a>
+                    @if(auth()->check())
+                    @if(Route::has('login'))
+                        @if(auth()->user()->role_as == 'admin')
+                            <a href="{{route('admin.dashboard')}}"><em class="icon ni ni-signout"></em><span>Dashboard</span></a>
+                        @elseif(auth()->user()->role_as == 'vendor')
+                            <a href="{{route('vendor.dashboard')}}"><em class="icon ni ni-signout"></em><span>Dashboard</span></a>
+                        @endif
+                    @endif
+                    @endif
+                    <a href="{{ route('aboutUs') }}" class="d-lg-show">About Us</a>
+                    <a href="{{ route('contact') }}" class="d-lg-show">Contact Us</a>
                     @if (Route::has('login'))
                         @auth()
                             <a href="{{route('customer.dashboard',\Illuminate\Support\Facades\Crypt::encryptString(\Illuminate\Support\Facades\Auth::user()->id))}}" class="d-lg-show">My Account</a>
                             <a href="" class="d-lg-show">{{auth()->user()->name}}</a>
                             <a class="" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                                             document.getElementById('logout-form').submit();">
                                 <em class="icon ni ni-signout"></em><span>Sign out</span>
                             </a>
 
@@ -106,7 +115,7 @@
                         @else
                             <a href="{{route('login')}}" class=""><i
                                     class="w-icon-account"></i>Sign In</a>
-                            <span class="delimiter d-lg-show">/</span>
+                            <span class="delimiter">/</span>
                             <a href="{{route('customer.create')}}" class="ml-0">Register</a>
                         @endauth
                     @endif
@@ -114,14 +123,15 @@
             </div>
         </div>
         <!-- End of Header Top -->
+        <!-- End of Header Top -->
 
         <div class="header-middle">
             <div class="container">
-                <div class="header-left mr-md-4">
+                <div class="header-left mr-md-4" style="height: 70px;">
                     <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                     </a>
                     <a href="{{ route('Home') }}" class="logo ml-lg-0">
-                        <img src="assets/images/logo.png" alt="logo" width="144" height="45" />
+                        <img src="{{asset('front/assets/images/logo2.png')}}" alt="logo" width="300" height="45" style="height: auto;" />
                     </a>
                     <form method="get" action="{{ route('front.product.search') }}" class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
 
@@ -132,14 +142,14 @@
                     </form>
                 </div>
                 <div class="header-right ml-4">
-                    <div class="header-call d-xs-show d-lg-flex align-items-center">
+                    {{-- <div class="header-call d-xs-show d-lg-flex align-items-center">
                         <a href="tel:#" class="w-icon-call"></a>
                         <div class="call-info d-lg-show">
                             <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
                                 <a href="mailto:#" class="text-capitalize">Live Chat</a> or :</h4>
                             <a href="tel:#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <a class="wishlist label-down link d-xs-show" href="{{route('wishlist')}}">
                         <i class="w-icon-heart"></i>
                         <span class="wishlist-label d-lg-show">Wishlist</span>
@@ -242,7 +252,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="{{route('all.brands')}}">All Brands</a>
+                                    <a href="{{route('all.services')}}">All Services</a>
                                 </li>
                                 <li>
                                     <a href="{{route('all.categories')}}">All Categories</a>
@@ -474,7 +484,7 @@
                                         <tr class="bb-no">
                                             <td class="product-name">{{$cartItem->pro_name}}<i class="fas fa-times"></i><span class="product-quantity" >{{$cartItem->pro_quantity}}</span></td>
 
-                                            <td class="product-total">${{$cartItem->pro_price*$cartItem->pro_quantity}}</td>
+                                            <td class="product-total">£ {{$cartItem->pro_price*$cartItem->pro_quantity}}</td>
                                         </tr>
                                         <?php $product_amount = $cartItem->pro_price*$cartItem->pro_quantity ?>
                                         <?php $total_amount = $total_amount + ($cartItem->pro_price*$cartItem->pro_quantity); ?>
@@ -485,13 +495,13 @@
                                         <tr class="bb-no">
                                             <td class="product-name">Cupon Discount<i
                                                     class="fas fa-minus"></i></td>
-                                            <td class="product-total">$<?php echo Session::get('CouponAmount'); ?> </td>
+                                            <td class="product-total">£ <?php echo Session::get('CouponAmount'); ?> </td>
                                         </tr>
                                         @else
                                             <tr class="bb-no">
                                                 <td class="product-name">Cupon Discount<i
                                                         class="fas fa-minus"></i></td>
-                                                <td class="product-total">$ 0</td>
+                                                <td class="product-total">£ 0</td>
                                             </tr>
                                         @endif
 {{--                                        <tr class="bb-no">--}}
@@ -504,7 +514,7 @@
                                                 <b>Subtotal</b>
                                             </td>
                                             <td>
-                                                <b>${{$total = $total_amount - Session::get('CouponAmount')}}</b>
+                                                <b>£{{$total = $total_amount - Session::get('CouponAmount')}}</b>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -518,13 +528,14 @@
                                                         <label
                                                             class="shipping-title text-dark font-weight-bold">Shipping Charge</label>
                                                     </li>
-                                                    <li>@foreach($delivery_charge as $eachDeliveryCharge)
+                                                    <li>
+                                                        @foreach($delivery_charge as $eachDeliveryCharge)
                                                         <div class="form-check">
                                                             <br>
                                                                 <input  class="form-check-input delivery_charge_ajax" type="radio"
                                                                         name="ajax_delivery_charge" data-value="{{$eachDeliveryCharge->delivery_amount}}" total_amount="{{$total}}" value="{{$eachDeliveryCharge->delivery_amount}}" required>
                                                                 <label for="" class="form-check-label" >{{$eachDeliveryCharge->delivery_location}}
-                                                                    {{$eachDeliveryCharge->delivery_amount}} Taka
+                                                                    {{$eachDeliveryCharge->delivery_amount}} Pound
                                                                 </label>
                                                         </div>
                                                         @endforeach
@@ -539,30 +550,11 @@
                                                 <b>Total</b>
                                             </th>
                                             <td>
-                                                <b class="grand_total">${{$grand_total = $total_amount - Session::get('CouponAmount') }}</b>
+                                                <b class="grand_total">£{{$grand_total = $total_amount - Session::get('CouponAmount') }}</b>
                                             </td>
                                         </tr>
                                         </tfoot>
                                     </table>
-
-                                    <div class="payment-methods" id="payment_method">
-                                        <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
-                                        <div class="accordion payment-accordion">
-                                            <div class="card">
-                                                <div class="radio">
-                                                    <label><input type="radio" value="cod" name="payment_method" class="mr-2" @if (old('payment_method') == 'cod') checked @endif> Cash on delivery </label>
-                                                </div>
-                                            </div>
-                                            <div class="card p-relative">
-                                                <div class="">
-                                                    <div class="radio">
-                                                        <label><input type="radio" value="card" name="payment_method" class="mr-2" @if (old('payment_method') == 'card') checked @endif> Online Payment </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @error('payment_method')<i class="text-danger">{{$message}}</i>@enderror
-                                        </div>
-                                    </div>
 
                                     <div class="form-group place-order pt-6">
                                         <button type="submit" class="btn btn-dark btn-block btn-rounded">Place Order</button>
@@ -584,189 +576,128 @@
     </main>
     <!-- End of Main -->
     <!-- Start of Footer -->
-    <footer class="footer">
-        <div class="footer-newsletter bg-primary pt-6 pb-6" style="background-color: darkgrey">
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="icon-box icon-box-side text-white">
-                            <div class="icon-box-icon d-inline-flex">
-                                <i class="w-icon-envelop3"></i>
-                            </div>
-                            <div class="icon-box-content">
-                                <h4 class="icon-box-title text-white text-uppercase mb-0">Subscribe To  Our Newsletter</h4>
-                                <p class="text-white">Get all the latest information on Events, Sales and Offers.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
-                        <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-rounded">
-                            <input type="email" class="form-control mr-2 bg-white" name="email" id="email"
-                                   placeholder="Your E-mail Address" />
-                            <button class="btn btn-dark btn-rounded" type="submit">Subscribe<i
-                                    class="w-icon-long-arrow-right"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<footer class="footer">
+    <div class="footer-newsletter pt-6 pb-6" style="background-color: darkgrey">
         <div class="container">
-            <div class="footer-top">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="widget widget-about">
-                            <a href="demo1.html" class="logo-footer">
-                                <img src="assets/images/logo_footer.png" alt="logo-footer" width="144"
-                                     height="45" />
-                            </a>
-                            <div class="widget-body">
-                                <p class="widget-about-title">Got Question? Call us 24/7</p>
-                                <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
-                                <p class="widget-about-desc">Register now to get updates on pronot get up icons
-                                    & coupons ster now toon.
-                                </p>
-
-                                <div class="social-icons social-icons-colored">
-                                    <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                    <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
-                                    <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
-                                    <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                    <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a>
-                                </div>
-                            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="icon-box icon-box-side text-white">
+                        <div class="icon-box-icon d-inline-flex">
+                            <i class="w-icon-envelop3"></i>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h3 class="widget-title">Company</h3>
-                            <ul class="widget-body">
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="#">Team Member</a></li>
-                                <li><a href="#">Career</a></li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                                <li><a href="#">Affilate</a></li>
-                                <li><a href="#">Order History</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h4 class="widget-title">My Account</h4>
-                            <ul class="widget-body">
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
-                                <li><a href="login.html">Sign In</a></li>
-                                <li><a href="#">Help</a></li>
-                                <li><a href="wishlist.html">My Wishlist</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h4 class="widget-title">Customer Service</h4>
-                            <ul class="widget-body">
-                                <li><a href="#">Payment Methods</a></li>
-                                <li><a href="#">Money-back guarantee!</a></li>
-                                <li><a href="#">Product Returns</a></li>
-                                <li><a href="#">Support Center</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Term and Conditions</a></li>
-                            </ul>
+                        <div class="icon-box-content">
+                            <h4 class="icon-box-title text-white text-uppercase mb-0">Subscribe To  Our Newsletter</h4>
+                            <p class="text-white">Get all the latest information on Events, Sales and Offers.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-middle">
-                <div class="widget widget-category">
-                    <div class="category-box">
-                        <h6 class="category-name">Consumer Electric:</h6>
-                        <a href="#">TV Television</a>
-                        <a href="#">Air Condition</a>
-                        <a href="#">Refrigerator</a>
-                        <a href="#">Washing Machine</a>
-                        <a href="#">Audio Speaker</a>
-                        <a href="#">Security Camera</a>
-                        <a href="#">View All</a>
-                    </div>
-                    <div class="category-box">
-                        <h6 class="category-name">Clothing & Apparel:</h6>
-                        <a href="#">Men's T-shirt</a>
-                        <a href="#">Dresses</a>
-                        <a href="#">Men's Sneacker</a>
-                        <a href="#">Leather Backpack</a>
-                        <a href="#">Watches</a>
-                        <a href="#">Jeans</a>
-                        <a href="#">Sunglasses</a>
-                        <a href="#">Boots</a>
-                        <a href="#">Rayban</a>
-                        <a href="#">Acccessories</a>
-                    </div>
-                    <div class="category-box">
-                        <h6 class="category-name">Home, Garden & Kitchen:</h6>
-                        <a href="#">Sofa</a>
-                        <a href="#">Chair</a>
-                        <a href="#">Bed Room</a>
-                        <a href="#">Living Room</a>
-                        <a href="#">Cookware</a>
-                        <a href="#">Utensil</a>
-                        <a href="#">Blender</a>
-                        <a href="#">Garden Equipments</a>
-                        <a href="#">Decor</a>
-                        <a href="#">Library</a>
-                    </div>
-                    <div class="category-box">
-                        <h6 class="category-name">Health & Beauty:</h6>
-                        <a href="#">Skin Care</a>
-                        <a href="#">Body Shower</a>
-                        <a href="#">Makeup</a>
-                        <a href="#">Hair Care</a>
-                        <a href="#">Lipstick</a>
-                        <a href="#">Perfume</a>
-                        <a href="#">View all</a>
-                    </div>
-                    <div class="category-box">
-                        <h6 class="category-name">Jewelry & Watches:</h6>
-                        <a href="#">Necklace</a>
-                        <a href="#">Pendant</a>
-                        <a href="#">Diamond Ring</a>
-                        <a href="#">Silver Earing</a>
-                        <a href="#">Leather Watcher</a>
-                        <a href="#">Rolex</a>
-                        <a href="#">Gucci</a>
-                        <a href="#">Australian Opal</a>
-                        <a href="#">Ammolite</a>
-                        <a href="#">Sun Pyrite</a>
-                    </div>
-                    <div class="category-box">
-                        <h6 class="category-name">Computer & Technologies:</h6>
-                        <a href="#">Laptop</a>
-                        <a href="#">iMac</a>
-                        <a href="#">Smartphone</a>
-                        <a href="#">Tablet</a>
-                        <a href="#">Apple</a>
-                        <a href="#">Asus</a>
-                        <a href="#">Drone</a>
-                        <a href="#">Wireless Speaker</a>
-                        <a href="#">Game Controller</a>
-                        <a href="#">View all</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-left">
-                    <p class="copyright">Copyright © 2021 Wolmart Store. All Rights Reserved.</p>
-                </div>
-                <div class="footer-right">
-                    <span class="payment-label mr-lg-8">We're using safe payment for</span>
-                    <figure class="payment">
-                        <img src="assets/images/payment.png" alt="payment" width="159" height="25" />
-                    </figure>
+                <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
+                    <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-rounded">
+                        <input type="email" class="form-control mr-2 bg-white" name="email" id="email"
+                               placeholder="Your E-mail Address" />
+                        <button class="btn btn-dark btn-rounded" type="submit">Subscribe<i
+                                class="w-icon-long-arrow-right"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- End of Footer -->
+    </div>
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="widget widget-about">
+                        <a href="{{ route('Home') }}" class="logo-footer">
+                            <img src="{{asset('front/assets/images/logo2.png')}}" alt="logo" />
+                        </a>
+                        {{-- <div class="widget-body">
+                            <p class="widget-about-title">Got Question? Call us 24/7</p>
+                            <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
+                            <p class="widget-about-desc">Register now to get updates on pronot get up icons
+                                & coupons ster now toon.
+                            </p>
+
+                            <div class="social-icons social-icons-colored">
+                                <a href="javascript:void(0)" class="social-icon social-facebook w-icon-facebook"></a>
+                                <a href="javascript:void(0)" class="social-icon social-twitter w-icon-twitter"></a>
+                                <a href="javascript:void(0)" class="social-icon social-instagram w-icon-instagram"></a>
+                                <a href="javascript:void(0)" class="social-icon social-youtube w-icon-youtube"></a>
+                                <a href="javascript:void(0)" class="social-icon social-pinterest w-icon-pinterest"></a>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h3 class="widget-title">Company</h3>
+                        <ul class="widget-body">
+                            <li><a href="{{ route('aboutUs') }}">About Us</a></li>
+                            <li><a href="javascript:void(0)">Team Member</a></li>
+                            <li><a href="javascript:void(0)">Career</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="javascript:void(0)">Affilate</a></li>
+                            <li><a href="javascript:void(0)">Order History</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h4 class="widget-title">My Account</h4>
+                        <ul class="widget-body">
+                            <li><a href="javascript:void(0)">Track My Order</a></li>
+                            <li><a href="javascript:void(0)">View Cart</a></li>
+                            <li><a href="javascript:void(0)">Sign In</a></li>
+                            <li><a href="javascript:void(0)">Help</a></li>
+                            <li><a href="javascript:void(0)">My Wishlist</a></li>
+                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h4 class="widget-title">Customer Service</h4>
+                        <ul class="widget-body">
+                            <li><a href="javascript:void(0)">Payment Methods</a></li>
+                            <li><a href="javascript:void(0)">Money-back guarantee!</a></li>
+                            <li><a href="javascript:void(0)">Product Returns</a></li>
+                            <li><a href="javascript:void(0)">Support Center</a></li>
+                            <li><a href="javascript:void(0)">Shipping</a></li>
+                            <li><a href="javascript:void(0)">Term and Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-left">
+                <p class="copyright">Copyright © <script>document.write(new Date().getFullYear());</script> Afribazaar Online Shop. All Rights Reserved.</p>
+            </div>
+            <div class="widget-body" style="margin-left: 50px">
+                {{-- <p class="widget-about-title">Got Question? Call us 24/7</p>
+                <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
+                <p class="widget-about-desc">Register now to get updates on pronot get up icons
+                    & coupons ster now toon.
+                </p> --}}
+
+                <div class="social-icons social-icons-colored">
+                    <a href="javascript:void(0)" class="social-icon social-facebook w-icon-facebook"></a>
+                    <a href="javascript:void(0)" class="social-icon social-twitter w-icon-twitter"></a>
+                    <a href="javascript:void(0)" class="social-icon social-instagram w-icon-instagram"></a>
+                    <a href="javascript:void(0)" class="social-icon social-youtube w-icon-youtube"></a>
+                    <a href="javascript:void(0)" class="social-icon social-pinterest w-icon-pinterest"></a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <span class="payment-label mr-lg-8">We're using safe payment for</span>
+                <figure class="payment">
+                    <img src="{{asset('front/assets/images/ssl-mobile.png')}}" alt="payment" width="350" height="25" />
+                </figure>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
 </div>
 <!-- End of Page Wrapper -->
 
@@ -1100,7 +1031,7 @@
             var shipping_charge = $(this).data("value");
             var total_price = $(this).attr("total_amount");
             var grand_total = parseInt(total_price) + parseInt(shipping_charge);
-            $(".grand_total").html("$" +grand_total);
+            $(".grand_total").html("£" +grand_total);
 
         });
 

@@ -13,106 +13,109 @@ use Intervention\Image\Facades\Image;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $result = DB::table('orders')
             ->select(DB::raw('count(*) as total_orders, status'))
             ->groupBy('status')
             ->get();
-        $chartData ="";
-        foreach ($result as $list){
-            $chartData.="['".$list->status."',     ".$list->total_orders."],";
+        $chartData = "";
+        foreach ($result as $list) {
+            $chartData .= "['" . $list->status . "',     " . $list->total_orders . "],";
         }
-        $arr['chartData'] = rtrim($chartData,",");
+        $arr['chartData'] = rtrim($chartData, ",");
 
         //monthly report
         $m_o_result = DB::table('orders')
             ->select(DB::raw('count(*) as total_monthly_orders, order_month'))
             ->groupBy('order_month')
             ->get();
-        $chartData ="";
-        foreach ($m_o_result as $list){
-            $chartData.="['".$list->order_month."',     ".$list->total_monthly_orders."],";
+        $chartData = "";
+        foreach ($m_o_result as $list) {
+            $chartData .= "['" . $list->order_month . "',     " . $list->total_monthly_orders . "],";
         }
-        $arr['monthly_orders'] = rtrim($chartData,",");
+        $arr['monthly_orders'] = rtrim($chartData, ",");
 
         //yearly report
         $y_o_result = DB::table('orders')
             ->select(DB::raw('count(*) as total_monthly_orders, order_year'))
             ->groupBy('order_year')
             ->get();
-        $chartData ="";
-        foreach ($y_o_result as $list){
-            $chartData.="['".$list->order_year."',     ".$list->total_monthly_orders."],";
+        $chartData = "";
+        foreach ($y_o_result as $list) {
+            $chartData .= "['" . $list->order_year . "',     " . $list->total_monthly_orders . "],";
         }
-        $arr['yearly_orders'] = rtrim($chartData,",");
+        $arr['yearly_orders'] = rtrim($chartData, ",");
 
         //today sales
         $date = date('d/m/Y');
 
-        $today_sale =  DB::table('orders')
-            ->where('order_date',$date)
-            ->where('status','Delivered')
-            ->sum('grand_total','-','delivery_charge');
+        $today_sale = DB::table('orders')
+            ->where('order_date', $date)
+            ->where('status', 'Delivered')
+            ->sum('grand_total', '-', 'delivery_charge');
 
         //today orders
-        $today_orders =  DB::table('orders')
-            ->where('order_date',$date)
-            ->where('status','Delivered')
+        $today_orders = DB::table('orders')
+            ->where('order_date', $date)
+            ->where('status', 'Delivered')
             ->count('id');
 
         //today customers
-        $today_customers =  DB::table('orders')
-            ->where('order_date',$date)
+        $today_customers = DB::table('orders')
+            ->where('order_date', $date)
             ->count('user_id');
 
         //today subscription
-        $today_subscription =  DB::table('subscribes')
-            ->where('date',$date)
+        $today_subscription = DB::table('subscribes')
+            ->where('date', $date)
             ->count('id');
 
         //stock out product list
         $products = DB::table('products')
-            ->join('categories','products.category_id', 'categories.id')
-            ->join('users','products.user_id', 'users.id')
-            ->join('brands','products.brand_id', 'brands.id')
-            ->where('products.product_quantity','<', '1')
-            ->select('categories.category_name','users.name','brands.brand_name','products.*')
-            ->orderBy('products.id','DESC')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->join('users', 'products.user_id', 'users.id')
+            ->join('brands', 'products.brand_id', 'brands.id')
+            ->where('products.product_quantity', '<', '1')
+            ->select('categories.category_name', 'users.name', 'brands.brand_name', 'products.*')
+            ->orderBy('products.id', 'DESC')
             ->get();
 
-        return view('admin.dashboard',$arr,compact('today_sale','today_orders','today_customers','today_subscription','products'));
+        return view('admin.dashboard', $arr, compact('today_sale', 'today_orders', 'today_customers', 'today_subscription', 'products'));
     }
 
-    public function viewProfile(){
-        $profileInformation = User::where('id',auth()->user()->id)->first();
-        return view('admin.profileInformation.view',compact('profileInformation'));
+    public function viewProfile()
+    {
+        $profileInformation = User::where('id', auth()->user()->id)->first();
+        return view('admin.profileInformation.view', compact('profileInformation'));
     }
 
-    public function viewProfileImage(){
-        $profileInformation = User::where('id',auth()->user()->id)->first();
+    public function viewProfileImage()
+    {
+        $profileInformation = User::where('id', auth()->user()->id)->first();
         return view('admin.profileInformation.image');
     }
 
-    public function editProInfo($id){
+    public function editProInfo($id)
+    {
         $decrypt_id = decrypt($id);
-        $data ['user'] = User::where('id',$decrypt_id)->first();
-        return view('admin.profileInformation.editProfile' ,$data);
+        $data['user'] = User::where('id', $decrypt_id)->first();
+        return view('admin.profileInformation.editProfile', $data);
     }
 
-    public function updateProInfo(Request $request, $id){
+    public function updateProInfo(Request $request, $id)
+    {
         if (auth()->user()->demo_id == 1) {
             session()->flash('error', 'Demo account are not change anything! thanks');
             return redirect()->route('admin.view.profile');
-        }
-        else
-        {
+        } else {
             $decrypt_id = decrypt($id);
             $request->validate([
                 'name' => 'required',
                 'country' => 'required',
                 'city' => 'required',
-                'email' => 'required|unique:users,email,'.$decrypt_id,
-                'mobile' => 'required|unique:users,mobile,'.$decrypt_id,
+                'email' => 'required|unique:users,email,' . $decrypt_id,
+                'mobile' => 'required|unique:users,mobile,' . $decrypt_id,
                 'password' => 'confirmed'
             ]);
 
@@ -126,10 +129,10 @@ class DashboardController extends Controller
             $user->city = $request->city;
             $user->state = $request->state;
             $user->zip = $request->zip;
-//        $user->role_as = $request->role_as;
+            //        $user->role_as = $request->role_as;
             $user->nid = $request->nid;
             $user->status = $request->status;
-            if ($request->has('password') && $request->password != null ){
+            if ($request->has('password') && $request->password != null) {
 
                 $user->password = Hash::make($request->password);
             }
@@ -139,13 +142,12 @@ class DashboardController extends Controller
         }
     }
 
-    public function proImageStore(Request $request){
+    public function proImageStore(Request $request)
+    {
         if (auth()->user()->demo_id == 1) {
             session()->flash('error', 'Demo account are not change anything! thanks');
             return redirect()->route('admin.view.profile');
-        }
-        else
-        {
+        } else {
             $request->validate([
                 'image' => 'mimes:jpeg,png',
             ]);
@@ -153,13 +155,13 @@ class DashboardController extends Controller
             $auth_id = auth()->user()->id;
             $user = User::findOrFail($auth_id);
 
-            if ($request->hasFile('image')){
+            if ($request->hasFile('image')) {
 
                 $path = 'images/profile/';
                 $img = $request->file('image');
-                $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
-                Image::make($img)->resize(100, 100)->save(public_path('images/profile/').$file_name);
-//            $img->move($path,$file_name);
+                $file_name = rand(0000, 9999) . '-' . $img->getFilename() . '.' . $img->getClientOriginalExtension();
+                Image::make($img)->resize(100, 100)->save(public_path('images/profile/') . $file_name);
+                //            $img->move($path,$file_name);
 
                 $user->avatar = $file_name;
 

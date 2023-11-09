@@ -68,8 +68,21 @@
                                 </div>
                                 <!-- End of Collapsible Widget -->
 
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title"><label>All Services</label></h3>
+                                    <ul class="widget-body filter-items search-ul" style="height: 300px; overflow-y: scroll;">
+                                        @foreach($services as $category)
+                                            <li>
+                                                <a href="{{route('category.product', encrypt($category->id))}}">
+                                                    {{$category->category_name}}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
                                 <!-- Start of Collapsible Widget -->
-                                <form action="{{route('front.shop')}}" method="GET" enctype="multipart/form-data">
+                                {{-- <form action="{{route('front.shop')}}" method="GET" enctype="multipart/form-data">
                                     <div class="widget widget-collapsible ">
                                         <h3 class="widget-title"><span>Brand</span></h3>
                                         <div class="widget-body">
@@ -90,7 +103,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                </form>
+                                </form> --}}
                                 <!-- End of Collapsible Widget -->
 
                             </div>
@@ -229,10 +242,10 @@
                                             </div>
                                             <div class="product-price">
                                                 @if($eachProduct->product_discount_price == null)
-                                                    <ins class="new-price">৳ {{ number_format($eachProduct->product_regular_price) }}</ins>
+                                                    <ins class="new-price">£ {{ number_format($eachProduct->product_regular_price) }}</ins>
                                                 @else
-                                                    <ins class="new-price">৳ {{ number_format($eachProduct->product_discount_price )}}</ins>
-                                                    <del class="old-price">৳ {{number_format($eachProduct->product_regular_price)}}</del>
+                                                    <ins class="new-price">£ {{ number_format($eachProduct->product_discount_price )}}</ins>
+                                                    <del class="old-price">£ {{number_format($eachProduct->product_regular_price)}}</del>
                                                 @endif
                                             </div>
                                         </div>

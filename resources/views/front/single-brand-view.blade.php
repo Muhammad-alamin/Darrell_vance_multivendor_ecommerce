@@ -78,10 +78,10 @@
                                                 </h4>
                                                 <div class="product-price">
                                                     @if($eachProduct->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($eachProduct->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($eachProduct->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($eachProduct->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($eachProduct->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($eachProduct->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($eachProduct->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
                                             </div>
@@ -268,10 +268,10 @@
                                                     </div>
                                                     <div class="product-price">
                                                         @if($product->product_discount_price == null)
-                                                            <ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins>
+                                                            <ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins>
                                                         @else
-                                                            <ins class="new-price">৳ {{ number_format($product->product_discount_price )}}</ins>
-                                                            <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                            <ins class="new-price">£ {{ number_format($product->product_discount_price )}}</ins>
+                                                            <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                                         @endif
                                                     </div>
 

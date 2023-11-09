@@ -194,8 +194,8 @@
                 success:function (resp) {
                     // alert(response);
                     var price =resp.split('#');
-                    $("#getPrice").html('৳'+ price[0]);
-                    $("#getPrice").html('৳'+ price[0]);
+                    $("#getPrice").html('£'+ price[0]);
+                    $("#getPrice").html('£'+ price[0]);
                     $("#price").val(price[0]);
                     $('#add_to_cart_button').removeAttr('disabled');
                 },
@@ -227,7 +227,7 @@
                         $("#stock_check").html('<label class="product-label label-discount font-size-sm" style="background-color: red">Stock out</label>');
                     }
                     $("#get_stock").html('<span class="text-center font-size-md" id="get_stock" style="margin-left: 10px">('+stock[0] +' products available)</span>');
-                    // $("#getPrice").html('৳'+ price[0]);
+                    // $("#getPrice").html('£'+ price[0]);
                     // $("#price").val(price[0]);
                     $('#add_to_cart_button').removeAttr('disabled');
                 },

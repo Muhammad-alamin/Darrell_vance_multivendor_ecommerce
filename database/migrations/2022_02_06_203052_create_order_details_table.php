@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->integer('brand_id');
             $table->integer('category_id');
             $table->integer('product_id');
-            $table->string('product_code');
+            $table->string('product_code')->nullable();
             $table->string('product_name');
             $table->string('product_color')->nullable();
             $table->string('product_size')->nullable();

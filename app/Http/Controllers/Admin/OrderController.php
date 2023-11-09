@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Model\Order;
 use App\Model\OrderDetails;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +65,7 @@ class OrderController extends Controller
         if($order_status == Order::STATUS_CANCELED){
             Mail::to($order->email)->send(new OrderCanceled($order));
         }
-        Alert::success('Success', 'Order Status Changed Successfully');
+        Toastr::success('Order Status Changed Successfully', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
 
     }

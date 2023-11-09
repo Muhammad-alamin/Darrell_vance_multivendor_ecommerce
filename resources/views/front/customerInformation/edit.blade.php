@@ -15,7 +15,7 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="demo1.html">Home</a></li>
+                    <li><a href="{{ route('Home') }}">Home</a></li>
                     <li>My account</li>
                 </ul>
             </div>
@@ -34,7 +34,10 @@
                             <a href="{{route('customer.create')}}" >Orders</a>
                         </li>
                         <li class="link-item">
-                            <a href="{{route('customer.edit',encrypt($userId->id))}}" >Account details</a>
+                            <a href="" >Account details</a>
+                        </li>
+                        <li class="link-item">
+                            <a class="" href="{{ URL('/chatify')}}" target="_blank">Chat Box</a>
                         </li>
                         <li class="link-item">
                             <a href="{{route('customer.create')}}">Wishlist</a>

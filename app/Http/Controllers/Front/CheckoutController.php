@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderSuccessNotificationCustomer;
+use App\Mail\OrderSuccessNotificationSeller;
+use App\Model\Attributes;
 use App\Model\BillingAddress;
 use App\Model\Brand;
 use App\Model\BrandCommission;
@@ -18,6 +21,7 @@ use App\VendorProfit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Stripe\Stripe;
 
@@ -133,14 +137,14 @@ class CheckoutController extends Controller
             $order->coupon_code = $coupon_code;
             $order->coupon_amount = $coupon_amount;
             $order->product_price = $data['product_price'];
-            $order->payment_method = $data['payment_method'];
+            $order->payment_method = 'card';
             $order->grand_total = $main_total;
             $order->delivery_charge = $data['ajax_delivery_charge'];
             $order->order_date = date('d/m/Y');
             $order->order_month = date('F');
             $order->order_year = date('Y');
             if ($request->payment_method != 'card') {
-                $order->status = Order::STATUS_PROCESSING;
+                $order->status = Order::STATUS_PENDING;
             }
         $order->Save();
 
@@ -165,22 +169,22 @@ class CheckoutController extends Controller
             $cartPro->vendor_profit = ($pro->pro_quantity * $pro->pro_price) * $pro->bran_commission_percentage/100;
             $cartPro->save();
 
-            if (isset($pro->pro_size)){
-                DB::table('attributes')->where('product_id',$pro->pro_id)
-                    ->where('attributes_size',$pro->pro_size)
-                    ->update(['attributes_stock' => DB::raw('attributes_stock -' . $pro->pro_quantity)]);
-            }else{
-                DB::table('products')->where('id',$pro->pro_id)
-                    ->update(['product_quantity' => DB::raw('product_quantity -' . $pro->pro_quantity)]);
-            }
+            // if (isset($pro->pro_size)){
+            //     DB::table('attributes')->where('product_id',$pro->pro_id)
+            //         ->where('attributes_size',$pro->pro_size)
+            //         ->update(['attributes_stock' => DB::raw('attributes_stock -' . $pro->pro_quantity)]);
+            // }else{
+            //     DB::table('products')->where('id',$pro->pro_id)
+            //         ->update(['product_quantity' => DB::raw('product_quantity -' . $pro->pro_quantity)]);
+            // }
 
-            $vendor_profit = new VendorProfit();
-            $vendor_profit->brand_id = $pro->product->brand_id;
-            $vendor_profit->vendor_id = $vendor_id->user_id;
-            $vendor_profit->order_id = $order->id;
-            $vendor_profit->order_details_id = $cartPro->id;
-            $vendor_profit->profit_amount = ($pro->pro_quantity * $pro->pro_price) * $pro->bran_commission_percentage/100;
-            $vendor_profit->save();
+            // $vendor_profit = new VendorProfit();
+            // $vendor_profit->brand_id = $pro->product->brand_id;
+            // $vendor_profit->vendor_id = $vendor_id->user_id;
+            // $vendor_profit->order_id = $order->id;
+            // $vendor_profit->order_details_id = $cartPro->id;
+            // $vendor_profit->profit_amount = ($pro->pro_quantity * $pro->pro_price) - $cartPro->vendor_profit;
+            // $vendor_profit->save();
         }
 
         // $commission = OrderDetails::with('brandCommission')->get();
@@ -222,70 +226,155 @@ class CheckoutController extends Controller
         $shippingAddress->shipping_notes = $request->shipping_notes;
         $shippingAddress->save();
 
-        // if($data['payment_method']=="cod"){
-        //     Session::put('order_id',$order->order_id);
-        //     Session::put('status',$order->status);
-        //     Session::put('date',date('d/m/Y'));
-        //     Session::put('grand_total',$data['grand_total']);
-        //     Session::put('payment_method',$data['payment_method']);
-
-        //     return redirect()->route('success');
-        // }else{
-        //     return redirect()->route('online_payment');
-        // }
-
         // Set your Stripe API key
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         // stripe line items products fetch from loop
 
-        $product = [];
+        // $product = [];
 
-        $catProducts = Cart::with('product')->where(['session_id' =>$session_id])->get();
+        // $catProducts = Cart::with('product')->where(['session_id' =>$session_id])->get();
 
-        foreach($catProducts as $pro){
-            $product[] = [
-                'price_data' => [
-                  'currency' => 'usd',
-                  'product_data' => ['name' => $pro->pro_name],
-                  'unit_amount' => $pro->pro_price * 100,
-                ],
-                'quantity' => $pro->pro_quantity,
-            ];
+        // foreach($catProducts as $pro){
+        //     $product[] = [
+        //         'price_data' => [
+        //           'currency' => 'usd',
+        //           'product_data' => ['name' => $pro->pro_name],
+        //           'unit_amount' => $pro->pro_price * 100,
+        //         ],
+        //         'quantity' => $pro->pro_quantity,
+        //     ];
 
-        }
+        // }
 
+        // // Create a new Stripe Checkout Session
+        // $session = \Stripe\Checkout\Session::create(
+        //     [
+        //         'shipping_address_collection' => ['allowed_countries' => ['US', 'CA',]],
+        //         'shipping_options' => [
+        //           [
+        //             'shipping_rate_data' => [
+        //               'type' => 'fixed_amount',
+        //               'fixed_amount' => ['amount' => $data['ajax_delivery_charge'] * 100, 'currency' => 'usd'],
+        //               'display_name' => 'Cost of shipping',
+        //             ],
+        //           ],
+        //         ],
 
-        // Create a new Stripe Checkout Session
-        $session = \Stripe\Checkout\Session::create(
-            [
-                'shipping_address_collection' => ['allowed_countries' => ['US', 'CA',]],
+        //         'metadata' => ['order_id' =>  $order->order_id],
+        //         'line_items' => [$product],
+        //         'mode' => 'payment',
+        //         'success_url' => route('success'),
+        //         'cancel_url' => route('cancel'),
+        //       ]
+        // );
+            $encryptedOrderId = encrypt($order->id); // Encrypt the order ID
+            // Calculate the total amount after applying the coupon
+            $totalAmountAfterCoupon = ($data['grand_total']);
+            // ...
+
+            // Create a new Stripe Checkout Session
+            $session = \Stripe\Checkout\Session::create([
+                'shipping_address_collection' => ['allowed_countries' => ['US', 'CA']],
                 'shipping_options' => [
-                  [
-                    'shipping_rate_data' => [
-                      'type' => 'fixed_amount',
-                      'fixed_amount' => ['amount' => $data['ajax_delivery_charge'] * 100, 'currency' => 'usd'],
-                      'display_name' => 'Cost of shipping',
+                    [
+                        'shipping_rate_data' => [
+                            'type' => 'fixed_amount',
+                            'fixed_amount' => ['amount' => $data['ajax_delivery_charge'] * 100, 'currency' => 'gbp'],
+                            'display_name' => 'Cost of shipping',
+                        ],
                     ],
-                  ],
+                ],
+                'metadata' => ['order_id' => $order->order_id],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'gbp',
+                            'product_data' => ['name' => 'Your Product Amount'],
+                            'unit_amount' => $totalAmountAfterCoupon * 100, // Amount after applying the coupon
+                        ],
+                        'quantity' => 1, // Adjust the quantity if necessary
+                    ],
                 ],
 
-                'metadata' => ['order_id' =>  $order->order_id],
-                'line_items' => [$product],
+                'metadata' => [
+                    'order_id' =>  $order->order_id,
+
+                ],
+
+                'payment_intent_data' => [
+                    'metadata' => [
+                        'order_id' =>  $order->order_id,
+                    ]
+                ],
+
                 'mode' => 'payment',
-                'success_url' => 'https://example.com/success',
-                'cancel_url' => 'https://example.com/cancel',
-              ]
-        );
+                'success_url' => route('success',['order' => $encryptedOrderId]),
+                'cancel_url' => route('cancel'),
+            ]);
 
         // Redirect the user to the Stripe Checkout page
         return redirect()->away($session->url);
 
     }
 
-    public function success(){
+    public function success(Request $request, $encryptedOrderId){
+        $d_id = decrypt($encryptedOrderId);
+
+        // Update the order status to "paid" in the database
+        $order = Order::find($d_id);
+        if ($order) {
+            $order->status = 'Processing';
+            $order->save();
+        }
+
+        // Retrieve the order details
+        $order = Order::with('order_details')->where('id', $d_id)->first();
+
+        foreach ($order->order_details as $detail) {
+
+            if (isset($detail->product_size)){
+                DB::table('attributes')->where('product_id',$detail->product_id)
+                    ->where('attributes_size',$detail->product_size)
+                    ->update(['attributes_stock' => DB::raw('attributes_stock -' . $detail->product_qty)]);
+            }else{
+                DB::table('products')->where('id',$detail->product_id)
+                    ->update(['product_quantity' => DB::raw('product_quantity -' . $detail->product_qty)]);
+            }
+
+            $vendor_profit = new VendorProfit();
+            $vendor_profit->brand_id = $order->brand_id;
+            $vendor_profit->vendor_id = $order->vendor_id;
+            $vendor_profit->order_id = $order->id;
+            $vendor_profit->order_details_id = $detail->id;
+            $vendor_profit->profit_amount = ($detail->product_qty * $detail->product_price) - $detail->vendor_profit;
+            $vendor_profit->save();
+        }
+
+
+        Session::put('order_id',$order->order_id);
+        Session::put('status',$order->status);
+        Session::put('date',date('d/m/Y'));
+        Session::put('grand_total',$order['grand_total']);
+        Session::put('payment_method','card');
+        Session::forget('session_id');
+
+        // Assuming you have the necessary email addresses for the customer and seller
+        $customerEmail = User::where('id',$order->user_id)->first();
+        $sellerEmail = User::where('id',$order->vendor_id)->first();
+
+        // Sending email to the customer
+        Mail::to($customerEmail)->send(new OrderSuccessNotificationCustomer($order));
+
+        // Sending email to the seller
+        Mail::to($sellerEmail)->send(new OrderSuccessNotificationSeller($order));
+
         return view('front.success');
+    }
+
+
+    public function cancel(){
+        return view('front.cancel');
     }
 
     public function onlinePayment(){

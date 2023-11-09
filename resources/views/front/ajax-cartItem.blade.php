@@ -41,7 +41,7 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="product-price" style="padding-left: 40px"><span class="amount  mobile-view">৳ {{number_format($cart->pro_price)}}</span></td>
+                            <td class="product-price" style="padding-left: 40px"><span class="amount  mobile-view">£ {{number_format($cart->pro_price)}}</span></td>
                             @php $attr_stock = \App\Model\Attributes::where('product_id',$cart->pro_id)->orWhere('attributes_size' ,$cart->pro_size)->first() @endphp
                             {{--                                    <td class="product-quantity">--}}
                             {{--                                        <div class="input-group">--}}
@@ -88,7 +88,7 @@
                                 </div>
                             </td>
                             <td class="product-subtotal">
-                                <span class="amount" style="padding-left: 40px">৳ {{number_format($cart->pro_price*$cart->pro_quantity)}} </span>
+                                <span class="amount" style="padding-left: 40px">£ {{number_format($cart->pro_price*$cart->pro_quantity)}} </span>
                             </td>
                             <td>
                                 <button  type="submit" class="remove-item-cart" data-cart_id="{{$cart->id}}"><i class="fas fa-times"></i></button>
@@ -128,7 +128,7 @@
                                 <h3 class="cart-title text-uppercase">Cart Totals</h3>
                                 <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                     <label class="ls-25">Subtotal</label>
-                                    <span>৳ <?php echo number_format($total_amount); ?> </span>
+                                    <span>£ <?php echo number_format($total_amount); ?> </span>
                                 </div>
                                 <br>
                                 <div class="cart-subtotal d-flex align-items-center justify-content-between">
@@ -139,7 +139,7 @@
                                 <hr class="divider mb-6">
                                 <div class="order-total d-flex justify-content-between align-items-center">
                                     <label>Total</label>
-                                    <span class="ls-50">৳ <?php echo number_format($total_amount - Session::get('CouponAmount')); ?></span>
+                                    <span class="ls-50">£ <?php echo number_format($total_amount - Session::get('CouponAmount')); ?></span>
                                 </div>
                                 <button type="submit"
                                         class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
@@ -152,13 +152,13 @@
                                     <h3 class="cart-title text-uppercase">Cart Totals</h3>
                                     <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                         <label class="ls-25">Subtotal</label>
-                                        <span>৳ <?php echo number_format($total_amount); ?></span>
+                                        <span>£ <?php echo number_format($total_amount); ?></span>
                                     </div>
 
                                     <hr class="divider mb-6">
                                     <div class="order-total d-flex justify-content-between align-items-center">
                                         <label>Total</label>
-                                        <span class="ls-50" id="addDelCharge">৳ <?php echo number_format($total_amount); ?></span>
+                                        <span class="ls-50" id="addDelCharge">£ <?php echo number_format($total_amount); ?></span>
                                     </div>
                                     @if(\Illuminate\Support\Facades\Auth::check())
                                         <button type="submit"

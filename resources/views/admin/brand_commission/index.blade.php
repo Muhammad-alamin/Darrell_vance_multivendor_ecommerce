@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 
 @section('content')
-
     <!-- content @s -->
     <div class="nk-content ">
         <div class="container-fluid">
@@ -11,7 +10,7 @@
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
-                                    <h4 class="nk-block-title">Brand Commission List</h4>
+                                    <h4 class="nk-block-title">Shop Commission List</h4>
                                     <div class="nk-block-des">
                                     </div>
                                 </div>
@@ -38,7 +37,7 @@
                                         <thead>
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th class="nk-tb-col"><span class="sub-text">Vendor name</span></th>
-                                            <th class="nk-tb-col"><span class="sub-text">Brand name</span></th>
+                                            <th class="nk-tb-col"><span class="sub-text">Shop name</span></th>
                                             <th class="nk-tb-col"><span class="sub-text">Commission</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                         </tr>
@@ -73,8 +72,8 @@
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="{{route('brand-commission.edit' ,encrypt($eachBrand->id))}}"><em class="icon ni ni-edit"></em><span>Edit Brand</span></a></li>
-                                                                    <li><a href="{{route('admin.brandCommission.delete',encrypt($eachBrand->id))}}" onclick="return confirm('Are You Confirm to Delete?')"><em class="icon ni ni-trash"></em><span>Remove Brand</span></a></li>
+                                                                    <li><a href="{{route('brand-commission.edit' ,encrypt($eachBrand->id))}}"><em class="icon ni ni-edit"></em><span>Edit Commission</span></a></li>
+                                                                    <li><a href="{{route('admin.brandCommission.delete',encrypt($eachBrand->id))}}" onclick="return confirm('Are You Confirm to Delete?')"><em class="icon ni ni-trash"></em><span>Remove Commission</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

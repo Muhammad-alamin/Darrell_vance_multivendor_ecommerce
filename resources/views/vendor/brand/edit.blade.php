@@ -20,8 +20,8 @@
                                                 <div class="col-lg-10">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <label for="brand_name" class="form-label">Brand Name</label>
-                                                            <input type="text" class="form-control" name="brand_name" id="brand_name" value="{{old('brand_name', isset($brands)?$brands->brand_name:null)}}" placeholder="Enter Brand name">
+                                                            <label for="brand_name" class="form-label">Shop Name</label>
+                                                            <input type="text" class="form-control" name="brand_name" id="brand_name" value="{{old('brand_name', isset($brands)?$brands->brand_name:null)}}" placeholder="Enter Shop name">
                                                             @error('brand_name')<i class="text-danger">{{$message}}</i>@enderror
                                                         </div>
                                                     </div>
@@ -55,7 +55,7 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-10">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="default-06">Upload Brand Image</label>
+                                                        <label class="form-label" for="default-06">Upload Shop Logo</label>
                                                         <div class="form-control-wrap">
                                                             <div class="custom-file">
                                                                 <input type="file" name="image" id="image" multiple class="custom-file-input" value="{{old('image', isset($brands)?$brands->brand_image:null)}}" >
@@ -74,7 +74,7 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-10">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="default-06">Upload Brand Thumbnail Image</label>
+                                                        <label class="form-label" for="default-06">Upload Shop Thumbnail Image</label>
                                                         <div class="form-control-wrap">
                                                             <div class="custom-file">
                                                                 <input type="file" name="brand_thumbnail_image" id="brand_thumbnail_image" multiple class="custom-file-input"value="{{old('image', isset($brands)?$brands->brand_thumbnail_image:null)}}" >

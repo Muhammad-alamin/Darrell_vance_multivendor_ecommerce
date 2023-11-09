@@ -51,7 +51,7 @@ class CreateProductController extends Controller
 
     public function create()
     {
-        $data['categories'] = Category::all();
+        $data['categories'] = Category::where('types','=','product')->get();
         $data ['users'] = User::all();
         $data ['brands'] = Brand::all();
         return view('admin.product.create',$data);
@@ -103,6 +103,7 @@ class CreateProductController extends Controller
             $data['product_discount_amount'] = $request->product_discount_amount;
             $data['product_size'] = json_encode($request->product_size);
             $data['product_status'] = $request->product_status;
+            $data['product_approval'] = 'Approved';
             $data['created_at'] = \Carbon\Carbon::now()->toDateTimeString();
 
             $getProduct=[];
@@ -130,8 +131,8 @@ class CreateProductController extends Controller
                 $path = 'images/products/';
                 $img = $request->file('thumbnail_image');
                 $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
-                Image::make($img)->resize(700, 650)->save(public_path('images/products/').$file_name);
-//            $img->move($path,$file_name);
+                // Image::make($img)->resize(700, 650)->save(public_path('images/products/').$file_name);
+                $img->move($path,$file_name);
 
 
                 $data['product_thumbnail_image'] = $file_name;
@@ -174,7 +175,7 @@ class CreateProductController extends Controller
     public function edit($id)
     {
         $d_id = decrypt($id);
-        $data['categories'] = Category::all();
+        $data['categories'] = Category::where('types','=','product')->get();
         $data['brands'] = Brand::all();
         $data['product']= Product::find($d_id);
         return view('admin.product.edit',$data);
@@ -221,6 +222,7 @@ class CreateProductController extends Controller
             $product->product_discount_amount = $request->product_discount_amount;
             $product->product_size = json_encode($request->product_size);
             $product->product_status = $request->product_status;
+            $product->product_approval = 'Approved';
 
             if ($request->hasFile('thumbnail_image')){
 
@@ -234,7 +236,7 @@ class CreateProductController extends Controller
                     unlink($product->product_thumbnail_image);
                 }
 
-                $product->product_thumbnail_image = $path .'/'. $file_name;
+                $product->product_thumbnail_image = $file_name;
 
 
 

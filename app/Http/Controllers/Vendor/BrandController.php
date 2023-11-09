@@ -64,6 +64,7 @@ class BrandController extends Controller
             $brands->brand_name = $request->brand_name;
             $brands->brand_phone = $request->brand_phone;
             $brands->brand_address = $request->address;
+            $brands->brand_approval = 'Approved';
 
             if ($request->hasFile('image')){
 
@@ -96,7 +97,7 @@ class BrandController extends Controller
             }
 //        Image::make('foo.jpg')->resize(300, 200);
             $brands->save();
-            session()->flash('warning');
+            session()->flash('success','Brand Created Successfully');
             return redirect()->route('brand.index');
         }
     }
@@ -152,6 +153,7 @@ class BrandController extends Controller
             $brands->brand_name = $request->brand_name;
             $brands->brand_phone = $request->phone;
             $brands->brand_address = $request->address;
+            $brands->brand_approval = 'Approved';
 
             if ($request->hasFile('image')){
 

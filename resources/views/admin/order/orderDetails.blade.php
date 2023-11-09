@@ -216,11 +216,11 @@
                                     <?php $totalProPrice = $order_deatail->product_price * $order_deatail->product_qty ?>
                                     <tr>
                                         <td>{{$order_deatail->product_name}}</td>
-                                        <td>৳ {{ number_format( $order_deatail->product_price)}}</td>
+                                        <td>£ {{ number_format( $order_deatail->product_price)}}</td>
                                         <td>{{$order_deatail->product_qty}}</td>
-                                        <td>৳ {{ number_format( $order_deatail->product_price * $order_deatail->product_qty)}}</td>
+                                        <td>£ {{ number_format( $order_deatail->product_price * $order_deatail->product_qty)}}</td>
                                         @if(isset($order_deatail->brandCommission->percentage))
-                                            <td>৳ {{ number_format($totalProPrice * $order_deatail->brandCommission->percentage/100)}}</td>
+                                            <td>£ {{ number_format($totalProPrice * $order_deatail->brandCommission->percentage/100)}}</td>
                                         @else
                                             <td class="text-danger">Commission not set</td>
                                         @endif

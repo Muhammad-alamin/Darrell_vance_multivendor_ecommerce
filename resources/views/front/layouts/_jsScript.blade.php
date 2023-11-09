@@ -176,37 +176,37 @@
     });
 
     //apply coupon in ajax
-    {{--$('#applyCoupon').on('submit',function(e){--}}
-    {{--    e.preventDefault();--}}
-    {{--    var user = $(this).attr("user");--}}
-    {{--   if(user == 1){--}}
+    $('#applyCoupon').on('submit',function(e){
+       e.preventDefault();
+        var user = $(this).attr("user");
+       if(user == 1){
 
-    {{--   }--}}
-    {{--   else {--}}
-    {{--    alert("please login to apply coupon");--}}
-    {{--    return false;--}}
-    {{--   }--}}
-    {{--   var coupon_code = $("#coupon_code").val();--}}
-    {{--    $.ajax({--}}
-    {{--        data:{--}}
-    {{--            "coupon_code": coupon_code,--}}
-    {{--            "_token": "{{ csrf_token() }}",--}}
-    {{--        },--}}
-    {{--        url:'/cart/apply-coupon',--}}
-    {{--        type: 'post',--}}
-    {{--        success:function (resp) {--}}
-    {{--            if (resp.message!=""){--}}
-    {{--                alert(resp.message);--}}
-    {{--            }--}}
-    {{--            $('#appendCartItem').html(resp.item);--}}
-    {{--            loadCart();--}}
-    {{--            navCart();--}}
-    {{--        },--}}
-    {{--        error:function () {--}}
-    {{--            alert("Error");--}}
-    {{--        }--}}
-    {{--    })--}}
-    {{--})--}}
+       }
+       else {
+        alert("please login to apply coupon");
+        return false;
+       }
+       var coupon_code = $("#coupon_code").val();
+       $.ajax({
+           data:{
+                "coupon_code": coupon_code,
+                "_token": "{{ csrf_token() }}",
+            },
+            url:'/cart/apply-coupon',
+            type: 'post',
+            success:function (resp) {
+                if (resp.message!=""){
+                    alert(resp.message);
+                }
+                $('#appendCartItem').html(resp.item);
+                loadCart();
+                navCart();
+            },
+            error:function () {
+                alert("Error");
+            }
+        })
+    })
 
     $(".userLogin").click(function () {
         Command: toastr["warning"]("Login to add products in your Wishlist")
@@ -466,7 +466,7 @@
             var shipping_charge = $(this).data("value");
             var total_price = $(this).attr("total_amount");
             var grand_total = parseInt(total_price) + parseInt(shipping_charge);
-            $(".grand_total").html("$" +grand_total);
+            $(".grand_total").html("£" +grand_total);
 
         });
 

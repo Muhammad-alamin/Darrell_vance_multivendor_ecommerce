@@ -44,7 +44,7 @@
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th class="nk-tb-col"><span class="sub-text">Product name</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Category name</span></th>
-                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Brand name</span></th>
+                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Shop name</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Price</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Stock</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Image</span></th>
@@ -77,7 +77,7 @@
                                                 <span>{{$product->product_stock}}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-lg">
-                                                    <img src="{{asset($product->product_thumbnail_image)}}" class="img-fluid" alt="" style="height: 20px; width: 20px;">
+                                                    <img src="{{asset('images/products/' . $product->product_thumbnail_image)}}" class="img-fluid" alt="" style="height: 20px; width: 20px;">
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
                                                 @if($product->product_approval == 'Approved')

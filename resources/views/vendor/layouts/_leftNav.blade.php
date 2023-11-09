@@ -25,19 +25,19 @@
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
-                            <span class="nk-menu-text">Brand</span>
+                            <span class="nk-menu-text">Shop</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
                                 <a href="{{route('brand.create')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"></span>
-                                    <span class="nk-menu-text">Create Brand</span>
+                                    <span class="nk-menu-text">Create Shop</span>
                                 </a>
                             </li>
                             <li class="nk-menu-item">
                                 <a href="{{route('brand.index')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"></span>
-                                    <span class="nk-menu-text">Brand List</span>
+                                    <span class="nk-menu-text">Shop List</span>
                                 </a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
@@ -59,6 +59,27 @@
                                 <a href="{{route('products.index')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"></span>
                                     <span class="nk-menu-text">Product List</span>
+                                </a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-package-fill"></em></span>
+                            <span class="nk-menu-text">Service</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('vendor.service.create')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"></span>
+                                    <span class="nk-menu-text">Add Service</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{route('vendor.service.index')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"></span>
+                                    <span class="nk-menu-text">Service List</span>
                                 </a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
@@ -90,7 +111,12 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-
+                    <li class="nk-menu-item">
+                        <a href="{{ URL('/chatify')}}" target="_blank" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
+                            <span class="nk-menu-text">Chat Box</span>
+                        </a>
+                    </li>
                     <li class="nk-menu-item">
                         <a href="{{route('stock.product')}}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-folder-fill"></em></span>
@@ -145,9 +171,16 @@
                                 </a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="{{route('vendor.monthly.report')}}" class="nk-menu-link">
+                                <a href="{{route('vendor.withdrawl.create')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"></span>
                                     <span class="nk-menu-text">Withdraw request</span>
+                                </a>
+                            </li>
+
+                            <li class="nk-menu-item">
+                                <a href="{{route('vendor.withdrawl.index')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"></span>
+                                    <span class="nk-menu-text">Withdraw</span>
                                 </a>
                             </li>
                         </ul><!-- .nk-menu-sub -->

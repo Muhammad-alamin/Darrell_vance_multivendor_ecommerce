@@ -11,12 +11,14 @@ class CustomerMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
+
+    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $data;
     public function __construct($data)
     {
         $this->data = $data;
@@ -29,7 +31,11 @@ class CustomerMessage extends Mailable
      */
     public function build()
     {
-        return $this->subject('Reply')->markdown('vendor.customerMessage.mail');
-
+        return $this->subject('Information')->markdown('vendor.customerMessage.mail');
+        // return $this->view('vendor.customerMessage.mail')
+        //             ->with([
+        //                 'order' => $this->data,
+        //             ]);
     }
+
 }

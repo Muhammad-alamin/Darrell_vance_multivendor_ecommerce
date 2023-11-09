@@ -85,7 +85,7 @@
                                                     <span>{{$order->status}}</span>
                                                 </td>
                                                 <td class="nk-tb-col tb-col-mb">
-                                                    <span class="tb-lead">৳ {{number_format( $order->grand_total)}}</span>
+                                                    <span class="tb-lead">£ {{number_format( $order->grand_total)}}</span>
                                                 </td>
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">

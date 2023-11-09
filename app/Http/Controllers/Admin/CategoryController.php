@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data ['categories'] = Category::all();
+        $data ['categories'] = Category::where('types', 'product')->get();
         return view('admin.category.index',$data);
     }
 
@@ -76,6 +76,9 @@ class CategoryController extends Controller
                 $category->category_image = $path .'/'. $file_name;
 
             }
+
+            $category->types = 'product';
+
             $category->save();
             session()->flash('success', 'Category Added Successfully');
             return redirect()->route('category.index');
@@ -155,6 +158,8 @@ class CategoryController extends Controller
                 $category->category_image = $path .'/'. $file_name;
 
             }
+            $category->types = 'product';
+
             $category->save();
             session()->flash('success', 'Category Updated Successfully');
             return redirect()->route('category.index');

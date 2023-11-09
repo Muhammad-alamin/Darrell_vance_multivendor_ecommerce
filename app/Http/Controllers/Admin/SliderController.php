@@ -161,7 +161,7 @@ class SliderController extends Controller
 //
 //        return redirect()->route('slider.index');
     }
-    public function deleteCat($id)
+    public function deleteSlider($id)
     {
         if (auth()->user()->demo_id == 1) {
             session()->flash('error', 'Demo account are not change anything! thanks');

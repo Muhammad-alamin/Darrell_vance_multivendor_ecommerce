@@ -38,6 +38,13 @@
     } );
 
     $( function() {
+        $( "#transaction_complete_date" ).datepicker({
+            dateFormat:'dd/mm/yy'
+        });
+
+    } );
+
+    $( function() {
         $( "#campaignStartDatepicker" ).datepicker({
             minDate:0,
             dateFormat:'mm-dd-yy'

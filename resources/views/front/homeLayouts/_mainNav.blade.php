@@ -3,7 +3,7 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p class="welcome-msg">Welcome to Multi vendor E-commerce!</p>
+                <p class="welcome-msg">Welcome to Afribazaar Online Shop!</p>
             </div>
             <div class="header-right">
                 <!-- End of DropDown Menu -->
@@ -19,8 +19,8 @@
                     @endif
                 @endif
                 @endif
-                <a href="javascript:void(0)" class="d-lg-show">Blog</a>
-                <a href="javascript:void(0)" class="d-lg-show">Contact Us</a>
+                <a href="{{ route('aboutUs') }}" class="d-lg-show">About Us</a>
+                <a href="{{ route('contact') }}" class="d-lg-show">Contact Us</a>
                 @if (Route::has('login'))
                     @auth()
                         <a href="{{route('customer.dashboard',\Illuminate\Support\Facades\Crypt::encryptString(\Illuminate\Support\Facades\Auth::user()->id))}}" class="d-lg-show">My Account</a>
@@ -48,11 +48,11 @@
 
     <div class="header-middle">
         <div class="container">
-            <div class="header-left mr-md-4">
+            <div class="header-left mr-md-4" style="height: 70px;">
                 <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                 </a>
                 <a href="{{ route('Home') }}" class="logo ml-lg-0">
-                    <img src="{{asset('front/assets/images/logo.png')}}" alt="logo" width="300" height="45" />
+                    <img src="{{asset('front/assets/images/logo2.png')}}" alt="logo" width="300" height="45" />
                 </a>
                 <form method="get" action="{{ route('front.product.search') }}" class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
 
@@ -63,14 +63,14 @@
                 </form>
             </div>
             <div class="header-right ml-4">
-                <div class="header-call d-xs-show d-lg-flex align-items-center">
+                {{-- <div class="header-call d-xs-show d-lg-flex align-items-center">
                     <a href="tel:#" class="w-icon-call" title="Phone"></a>
                     <div class="call-info d-lg-show">
                         <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
-                            <a href="mailto:#" class="text-capitalize">Live Chat</a> or :</h4>
-                        <a href="tel:#" class="phone-number font-weight-bolder ls-50">+880 1730-00000</a>
+                            <a href="mailto:#" class="text-capitalize"></a></h4>
+                        <a href="tel:#" class="phone-number font-weight-bolder ls-50"></a>
                     </div>
-                </div>
+                </div> --}}
                 <a class="wishlist label-down link d-xs-show" href="{{route('wishlist')}}">
                     <i class="w-icon-heart" title="Wishlist"></i>
                     <span class="wishlist-label d-lg-show">Wishlist</span>
@@ -172,7 +172,7 @@
 
                             </li>
                             <li>
-                                <a href="{{route('all.brands')}}">All Brands</a>
+                                <a href="{{route('all.services')}}">All Services</a>
                             </li>
                             <li>
                                 <a href="{{route('all.categories')}}">All Categories</a>

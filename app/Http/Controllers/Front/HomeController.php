@@ -11,6 +11,7 @@ use App\Model\CampaignProduct;
 use App\Model\Cart;
 use App\Model\Category;
 use App\Model\Compare;
+use App\Model\ContactUs;
 use App\Model\GalleryImage;
 use App\Model\Order;
 use App\Model\Product;
@@ -55,7 +56,9 @@ class HomeController extends Controller
 
        $data['categories'] = Category::limit(11)->get();
 
-       $data['top_categories'] = Category::limit(6)->get();
+       $data['top_categories'] = Category::limit(6)->where('types','=','product')->get();
+
+       $data['top_services'] = Category::limit(6)->where('types','=','service')->get();
 
 
        $data['marketing_banners'] = Banner::orderBy('id','DESC')->limit(3)->get();
@@ -237,9 +240,9 @@ class HomeController extends Controller
 
            }
 //           $products = $products->paginate(12);
-           $categories = Category::orderBy('id', 'desc')->get();
-       $brand =  Brand::orderBy('id', 'desc')->get();
-       return view('front.product',compact('products', 'categories'))->with('brand',$brand);
+           $categories = Category::where('types','=','product')->orderBy('id', 'desc')->get();
+           $services = Category::where('types','=','service')->orderBy('id', 'desc')->get();
+       return view('front.product',compact('products', 'categories','services'));
 
     }
     //    Category wise product function end
@@ -301,9 +304,9 @@ class HomeController extends Controller
                 ->select('categories.*','brands.brand_name','products.*')->where('product_approval','Approved')->paginate(12);
         }
 //        $products = $products->paginate(12);
-        $categories = Category::orderBy('id', 'desc')->get();
-        $brand =  Brand::orderBy('id', 'desc')->get();
-        return view('front.product',$data,compact('products','categories'))->with('brand',$brand);
+            $categories = Category::where('types','=','product')->orderBy('id', 'desc')->get();
+            $services = Category::where('types','=','service')->orderBy('id', 'desc')->get();
+        return view('front.product',$data,compact('products','categories','services'));
 
     }
     //Shop Page function end
@@ -313,7 +316,7 @@ class HomeController extends Controller
         //$data['product_attributes']= Attributes::with('product')->where('product_id',$id)->get();
         $data['marketing_banners'] = Banner::orderBy('id','DESC')->limit(1)->get();
         $data['product'] = Product::with('brand','category','attributes')->findOrFail($d_id);
-        $data['brandImage'] = Brand::where('id',$data['product']->brand_id)->first();
+        $data['brandImage'] = Brand::with('user')->where('id',$data['product']->brand_id)->first();
         $galleryImage = GalleryImage::where('product_id',$d_id)->get();
 
         $data['featured_products'] = Product::where('product_approval','=','Approved')->
@@ -406,16 +409,22 @@ class HomeController extends Controller
 //       $searchingData = $request->input('product_search');
        $products = $products->paginate(12)->appends($append);
 //        echo "<pre>";print_r($data);die;
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::where('types','=','product')->orderBy('id', 'desc')->get();
+        $services = Category::where('types','=','service')->orderBy('id', 'desc')->get();
         $brand = Brand::orderBy('id', 'desc')->get();
-        return view('front.product', compact('products', 'categories','brand'));
+        return view('front.product', compact('products', 'categories','services', 'brand'));
 //        return view('front.product_search.view')->with('products',$products);
     }
 
     public function categories(){
-       $data ['categories'] = Category::all();
+       $data ['categories'] = Category::where('types','=','product')->get();
        return view('front.all-categories',$data);
     }
+
+    public function services(){
+        $data ['services'] = Category::where('types','=','service')->get();
+        return view('front.all-services',$data);
+     }
 
     public function brands(){
         $data ['brands'] = Brand::all();
@@ -572,5 +581,26 @@ class HomeController extends Controller
             }
         }
     }
+
+    public function aboutUs()
+    {
+        return view('front.aboutUs');
+    }
+
+    public function contactPage()
+    {
+        return view('front.contactUs');
+    }
+
+    public function contactStore(Request $request){
+
+        $contactCustomer = new ContactUs();
+        $contactCustomer->customer_name = $request->name;
+        $contactCustomer->customer_email = $request->email;
+        $contactCustomer->description = $request->message;
+        $contactCustomer->save();
+         Toastr::success('Message sent successfully', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+     }
 }
 

@@ -15,17 +15,35 @@
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="ni ni-menu-squared"></em></span>
-                            <span class="nk-menu-text">Category</span>
+                            <span class="nk-menu-text">Product Category</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
                                 <a href="{{route('category.create')}}" class="nk-menu-link @if(request()->routeIs('category.create'))  active @endif">
-                                    <span class="nk-menu-text">Category Create</span>
+                                    <span class="nk-menu-text">Product Category Create</span>
                                 </a>
                             </li>
                             <li class="nk-menu-item">
                                 <a href="{{route('category.index')}}" class="nk-menu-link @if(request()->routeIs('category.index'))  active @endif">
-                                    <span class="nk-menu-text">Category List</span>
+                                    <span class="nk-menu-text">Product Category List</span>
+                                </a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="ni ni-menu-squared"></em></span>
+                            <span class="nk-menu-text">Service Category</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.service-category.create')}}" class="nk-menu-link @if(request()->routeIs('admin.service-category.create'))  active @endif">
+                                    <span class="nk-menu-text">Service Category Create</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.service-category.index')}}" class="nk-menu-link @if(request()->routeIs('admin.service-category.index'))  active @endif">
+                                    <span class="nk-menu-text">Service Category List</span>
                                 </a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
@@ -47,14 +65,14 @@
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
-                            <span class="nk-menu-text">Brand</span>
+                            <span class="nk-menu-text">Shop</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{route('Brand.create')}}" class="nk-menu-link @if(request()->routeIs('Brand.create'))  active @endif"><span class="nk-menu-text">Brand Create</span></a>
+                                <a href="{{route('Brand.create')}}" class="nk-menu-link @if(request()->routeIs('Brand.create'))  active @endif"><span class="nk-menu-text">Shop Create</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="{{route('Brand.index')}}" class="nk-menu-link @if(request()->routeIs('Brand.index'))  active @endif"><span class="nk-menu-text">Brand List</span></a>
+                                <a href="{{route('Brand.index')}}" class="nk-menu-link @if(request()->routeIs('Brand.index'))  active @endif"><span class="nk-menu-text">Shop List</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
@@ -69,6 +87,20 @@
                             </li>
                             <li class="nk-menu-item">
                                 <a href="{{route('admin.products.index')}}" class="nk-menu-link @if(request()->routeIs('admin.products.index'))  active @endif"><span class="nk-menu-text">Product List</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-package-fill"></em></span>
+                            <span class="nk-menu-text">Services</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.service.create')}}" class="nk-menu-link @if(request()->routeIs('admin.service.create'))  active @endif"><span class="nk-menu-text">Add Service</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.service.index')}}" class="nk-menu-link @if(request()->routeIs('admin.service.index'))  active @endif"><span class="nk-menu-text">Service List</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
@@ -184,6 +216,19 @@
 
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-wallet"></em></span>
+                            <span class="nk-menu-text">Withdraw</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('withdraw.index')}}" class="nk-menu-link @if(request()->routeIs('withdraw.index'))  active @endif"><span class="nk-menu-text">Approved Withdraw</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-note-add-fill"></em></span>
                             <span class="nk-menu-text">Campaign</span>
                         </a>
@@ -196,6 +241,12 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item">
+                        <a href="{{ URL('/chatify')}}" target="_blank" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
+                            <span class="nk-menu-text">Chat Box</span>
+                        </a>
+                    </li>
 
                     <li class="nk-menu-item">
                     <a href="{{route('order.index')}}" class="nk-menu-link @if(request()->routeIs('order.index'))  active @endif">
@@ -227,7 +278,12 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.customerMessage')}}" class="nk-menu-link @if(request()->routeIs('admin.customerMessage'))  active @endif">
+                            <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                            <span class="nk-menu-text">Customer Message</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item">
                         <a href="{{route('backups.index')}}" class="nk-menu-link @if(request()->routeIs('backups.index'))  active @endif">
                             <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>

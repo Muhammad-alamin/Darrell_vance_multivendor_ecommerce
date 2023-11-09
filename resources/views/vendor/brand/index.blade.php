@@ -11,7 +11,7 @@
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
-                                    <h4 class="nk-block-title">Brand List</h4>
+                                    <h4 class="nk-block-title">Shop List</h4>
                                     <div class="nk-block-des">
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                             <th class="nk-tb-col"><span class="sub-text">Name</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Phone No</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Address</span></th>
-                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Brand Image</span></th>
+                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Shop Logo</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                         </tr>
                                         </thead>
@@ -81,9 +81,9 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#" class="disabled"><em class="icon ni ni-eye"></em><span>View Product</span></a></li>
-                                                                        <li><a href="{{route('brand.edit',$brand->id)}}" class="disabled"><em class="icon ni ni-edit"></em><span>Edit Product</span></a></li>
-                                                                        <li><a href="{{route('vendor.brand.delete',$brand->id)}}" class="disabled"><em class="icon ni ni-trash"></em><span>Remove Product</span></a></li>
+                                                                        <li><a href="#" class="disabled"><em class="icon ni ni-eye"></em><span>View Shop</span></a></li>
+                                                                        <li><a href="{{route('brand.edit',$brand->id)}}" class="disabled"><em class="icon ni ni-edit"></em><span>Edit Shop</span></a></li>
+                                                                        <li><a href="{{route('vendor.brand.delete',$brand->id)}}" class="disabled"><em class="icon ni ni-trash"></em><span>Remove Shop</span></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

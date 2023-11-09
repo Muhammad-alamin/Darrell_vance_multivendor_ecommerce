@@ -222,7 +222,7 @@
                                             </div>
 
                                             @if (isset($product))
-                                                <img src="{{asset($product->product_thumbnail_image)}}" width="150px;">
+                                                <img src="{{asset('images/products/'. $product->product_thumbnail_image)}}" width="150px;">
                                             @endif
 
                                             <div class="row g-3 align-center">

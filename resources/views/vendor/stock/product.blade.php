@@ -78,7 +78,7 @@
                                                         <span>{{$product->product_quantity}}</span>
                                                     </td>
                                                     <td class="nk-tb-col tb-col-lg">
-                                                        <img src="{{asset($product->product_thumbnail_image)}}" class="img-fluid" alt="" style="height: 20px; width: 20px;">
+                                                        <img src="{{asset('images/products/' .$product->product_thumbnail_image)}}" class="img-fluid" alt="" style="height: 20px; width: 20px;">
                                                     </td>
                                                     <td class="nk-tb-col tb-col-md">
                                                         @if($product->product_approval == 'Approved')

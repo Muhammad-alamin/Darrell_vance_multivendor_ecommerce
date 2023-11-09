@@ -38,7 +38,7 @@ function navCart() {
                         '                                    <a href="javascript:void(0)" class="product-name">'+eachItem.pro_name+'</a>\n' +
                         '                                    <div class="price-box">\n' +
                         '                                        <span class="product-quantity">'+eachItem.pro_quantity+'</span>\n' +
-                        '                                        <span class="product-price">৳ '+eachItem.pro_price+'</span>\n' +
+                        '                                        <span class="product-price">£ '+eachItem.pro_price+'</span>\n' +
                         '                                    </div>\n' +
                         '                                </div>\n' +
                         '                                <figure class="product-media">\n' +
@@ -56,7 +56,7 @@ function navCart() {
                 html+='                        <div class="products" >\n' +
                     '                            <div class="cart-total priceCart" style="width: 250px;">\n' +
                     '                                <label>Subtotal:</label>\n' +
-                    '                                <span class="price mobile-responsive-price">৳ '+totalPrice.toLocaleString()+'</span>\n' +
+                    '                                <span class="price mobile-responsive-price">£ '+totalPrice.toLocaleString()+'</span>\n' +
                     '                            </div>\n' +
                     '\n' +
                     '                            <div class="cart-action">\n' +

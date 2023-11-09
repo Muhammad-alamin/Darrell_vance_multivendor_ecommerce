@@ -69,7 +69,7 @@ class CouponsController extends Controller
         {
             $d_id = decrypt($id);
             Cupon::where(['id'=>$d_id])->delete();
-            Alert::success('Deleted', 'Success Message');
+            session()->flash('success', 'Coupons Deleted Successfully');
             return redirect()->back();
         }
     }

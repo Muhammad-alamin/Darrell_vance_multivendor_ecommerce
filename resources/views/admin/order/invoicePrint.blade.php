@@ -10,7 +10,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}">
     <!-- Page Title  -->
-    <title>Invoice Print | Multi vendor E-commerce</title>
+    <title>Invoice Print | Afribazaar Online Shop</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('./assets/gc-css/dashlite.css?ver=2.2.0')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('./assets/gc-css/theme.css?ver=2.2.0')}}">
@@ -21,7 +21,7 @@
     <div class="invoice invoice-print">
         <div class="invoice-wrap">
             <div class="invoice-brand text-center">
-                <img src="{{asset('front/assets/images/logo.png')}}" srcset="{{asset('front/assets/images/logo.png')}} 1x" alt="">
+                <img src="{{asset('front/assets/images/logo2.png')}}" srcset="{{asset('front/assets/images/logo2.png')}} 1x" style="max-height: 150px;" alt="">
             </div>
             <div class="invoice-head">
                 <div class="invoice-contact">

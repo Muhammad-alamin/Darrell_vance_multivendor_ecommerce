@@ -104,7 +104,7 @@
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Product image</span>
 
-                                                            <img src="{{asset($product->product_thumbnail_image)}}" class="img-fluid " alt="" style="height: 40px; width: 40px;">
+                                                            <img src="{{asset('images/products/'.$product->product_thumbnail_image)}}" class="img-fluid " alt="" style="height: 40px; width: 40px;">
 
                                                     </div>
                                                 </div>

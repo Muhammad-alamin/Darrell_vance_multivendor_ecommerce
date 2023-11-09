@@ -71,22 +71,31 @@
         <div class="header-top">
             <div class="container">
                 <div class="header-left">
-                    <p class="welcome-msg">Multi vendor E-commerce marketplace</p>
+                    <p class="welcome-msg">Welcome to Afribazaar Online Shop!</p>
                 </div>
                 <div class="header-right">
                     <!-- End of DropDown Menu -->
 
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
-                    <a href="blog.html" class="d-lg-show">Blog</a>
-                    <a href="contact-us.html" class="d-lg-show">Contact Us</a>
+                    @if(auth()->check())
+                    @if(Route::has('login'))
+                        @if(auth()->user()->role_as == 'admin')
+                            <a href="{{route('admin.dashboard')}}"><em class="icon ni ni-signout"></em><span>Dashboard</span></a>
+                        @elseif(auth()->user()->role_as == 'vendor')
+                            <a href="{{route('vendor.dashboard')}}"><em class="icon ni ni-signout"></em><span>Dashboard</span></a>
+                        @endif
+                    @endif
+                    @endif
+                    <a href="{{ route('aboutUs') }}" class="d-lg-show">About Us</a>
+                    <a href="{{ route('contact') }}" class="d-lg-show">Contact Us</a>
                     @if (Route::has('login'))
                         @auth()
                             <a href="{{route('customer.dashboard',\Illuminate\Support\Facades\Crypt::encryptString(\Illuminate\Support\Facades\Auth::user()->id))}}" class="d-lg-show">My Account</a>
                             <a href="" class="d-lg-show">{{auth()->user()->name}}</a>
                             <a class="" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                                             document.getElementById('logout-form').submit();">
                                 <em class="icon ni ni-signout"></em><span>Sign out</span>
                             </a>
 
@@ -96,7 +105,7 @@
                         @else
                             <a href="{{route('login')}}" class=""><i
                                     class="w-icon-account"></i>Sign In</a>
-                            <span class="delimiter d-lg-show">/</span>
+                            <span class="delimiter">/</span>
                             <a href="{{route('customer.create')}}" class="ml-0">Register</a>
                         @endauth
                     @endif
@@ -107,11 +116,11 @@
 
         <div class="header-middle">
             <div class="container">
-                <div class="header-left mr-md-4">
+                <div class="header-left mr-md-4" style="height: 70px;">
                     <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                     </a>
                     <a href="{{ route('Home') }}" class="logo ml-lg-0">
-                        <img src="{{asset('front/assets/images/logo.png')}}" alt="logo" width="300" height="45" />
+                        <img src="{{asset('front/assets/images/logo2.png')}}" alt="logo" width="300" height="45" style="height: auto;" />
                     </a>
                     <form method="get" action="{{ route('front.product.search') }}" class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
 
@@ -122,14 +131,14 @@
                     </form>
                 </div>
                 <div class="header-right ml-4">
-                    <div class="header-call d-xs-show d-lg-flex align-items-center">
+                    {{-- <div class="header-call d-xs-show d-lg-flex align-items-center">
                         <a href="tel:#" class="w-icon-call"></a>
                         <div class="call-info d-lg-show">
                             <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
                                 <a href="mailto:#" class="text-capitalize">Live Chat</a> or :</h4>
                             <a href="tel:#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <a class="wishlist label-down link d-xs-show" href="{{route('wishlist')}}">
                         <i class="w-icon-heart"></i>
                         <span class="wishlist-label d-lg-show">Wishlist</span>
@@ -230,7 +239,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="{{route('all.brands')}}">All Brands</a>
+                                    <a href="{{route('all.services')}}">All Services</a>
                                 </li>
                                 <li>
                                     <a href="{{route('all.categories')}}">All Categories</a>
@@ -359,114 +368,129 @@
     <!-- End of Main -->
 
 
-    <!-- Start of Footer -->
-    <footer class="footer">
-        <div class="footer-newsletter pt-6 pb-6" style="background-color: darkgrey">
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="icon-box icon-box-side text-white">
-                            <div class="icon-box-icon d-inline-flex">
-                                <i class="w-icon-envelop3"></i>
-                            </div>
-                            <div class="icon-box-content">
-                                <h4 class="icon-box-title text-white text-uppercase mb-0">Subscribe To  Our Newsletter</h4>
-                                <p class="text-white">Get all the latest information on Events, Sales and Offers.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
-                        <form id="subscriber" action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-rounded">
-                            <input type="email" class="form-control mr-2 bg-white" name="email" id="subscribe_email"
-                                   placeholder="Your E-mail Address"/>
-                            <button class="btn btn-dark btn-rounded" type="submit">Subscribe<i
-                                    class="w-icon-long-arrow-right"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+   <!-- Start of Footer -->
+<footer class="footer">
+    <div class="footer-newsletter pt-6 pb-6" style="background-color: darkgrey">
         <div class="container">
-            <div class="footer-top">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="widget widget-about">
-                            <a href="demo1.html" class="logo-footer">
-                                <img src="assets/images/logo_footer.png" alt="logo-footer" width="144"
-                                     height="45" />
-                            </a>
-                            <div class="widget-body">
-                                <p class="widget-about-title">Got Question? Call us 24/7</p>
-                                <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
-                                <p class="widget-about-desc">Register now to get updates on pronot get up icons
-                                    & coupons ster now toon.
-                                </p>
-
-                                <div class="social-icons social-icons-colored">
-                                    <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                    <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
-                                    <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
-                                    <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                    <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a>
-                                </div>
-                            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="icon-box icon-box-side text-white">
+                        <div class="icon-box-icon d-inline-flex">
+                            <i class="w-icon-envelop3"></i>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h3 class="widget-title">Company</h3>
-                            <ul class="widget-body">
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="#">Team Member</a></li>
-                                <li><a href="#">Career</a></li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                                <li><a href="#">Affilate</a></li>
-                                <li><a href="#">Order History</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h4 class="widget-title">My Account</h4>
-                            <ul class="widget-body">
-                                <li><a href="#">Track My Order</a></li>
-                                <li><a href="cart.html">View Cart</a></li>
-                                <li><a href="login.html">Sign In</a></li>
-                                <li><a href="#">Help</a></li>
-                                <li><a href="wishlist.html">My Wishlist</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="widget">
-                            <h4 class="widget-title">Customer Service</h4>
-                            <ul class="widget-body">
-                                <li><a href="#">Payment Methods</a></li>
-                                <li><a href="#">Money-back guarantee!</a></li>
-                                <li><a href="#">Product Returns</a></li>
-                                <li><a href="#">Support Center</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Term and Conditions</a></li>
-                            </ul>
+                        <div class="icon-box-content">
+                            <h4 class="icon-box-title text-white text-uppercase mb-0">Subscribe To  Our Newsletter</h4>
+                            <p class="text-white">Get all the latest information on Events, Sales and Offers.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-left">
-                    <p class="copyright">Copyright © 2021 Wolmart Store. All Rights Reserved.</p>
-                </div>
-                <div class="footer-right">
-                    <span class="payment-label mr-lg-8">We're using safe payment for</span>
-                    <figure class="payment">
-                        <img src="assets/images/payment.png" alt="payment" width="159" height="25" />
-                    </figure>
+                <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
+                    <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-rounded">
+                        <input type="email" class="form-control mr-2 bg-white" name="email" id="email"
+                               placeholder="Your E-mail Address" />
+                        <button class="btn btn-dark btn-rounded" type="submit">Subscribe<i
+                                class="w-icon-long-arrow-right"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- End of Footer -->
+    </div>
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="widget widget-about">
+                        <a href="{{ route('Home') }}" class="logo-footer">
+                            <img src="{{asset('front/assets/images/logo2.png')}}" alt="logo" />
+                        </a>
+                        {{-- <div class="widget-body">
+                            <p class="widget-about-title">Got Question? Call us 24/7</p>
+                            <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
+                            <p class="widget-about-desc">Register now to get updates on pronot get up icons
+                                & coupons ster now toon.
+                            </p>
+
+                            <div class="social-icons social-icons-colored">
+                                <a href="javascript:void(0)" class="social-icon social-facebook w-icon-facebook"></a>
+                                <a href="javascript:void(0)" class="social-icon social-twitter w-icon-twitter"></a>
+                                <a href="javascript:void(0)" class="social-icon social-instagram w-icon-instagram"></a>
+                                <a href="javascript:void(0)" class="social-icon social-youtube w-icon-youtube"></a>
+                                <a href="javascript:void(0)" class="social-icon social-pinterest w-icon-pinterest"></a>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h3 class="widget-title">Company</h3>
+                        <ul class="widget-body">
+                            <li><a href="{{ route('aboutUs') }}">About Us</a></li>
+                            <li><a href="javascript:void(0)">Team Member</a></li>
+                            <li><a href="javascript:void(0)">Career</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="javascript:void(0)">Affilate</a></li>
+                            <li><a href="javascript:void(0)">Order History</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h4 class="widget-title">My Account</h4>
+                        <ul class="widget-body">
+                            <li><a href="javascript:void(0)">Track My Order</a></li>
+                            <li><a href="javascript:void(0)">View Cart</a></li>
+                            <li><a href="javascript:void(0)">Sign In</a></li>
+                            <li><a href="javascript:void(0)">Help</a></li>
+                            <li><a href="javascript:void(0)">My Wishlist</a></li>
+                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <h4 class="widget-title">Customer Service</h4>
+                        <ul class="widget-body">
+                            <li><a href="javascript:void(0)">Payment Methods</a></li>
+                            <li><a href="javascript:void(0)">Money-back guarantee!</a></li>
+                            <li><a href="javascript:void(0)">Product Returns</a></li>
+                            <li><a href="javascript:void(0)">Support Center</a></li>
+                            <li><a href="javascript:void(0)">Shipping</a></li>
+                            <li><a href="javascript:void(0)">Term and Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-left">
+                <p class="copyright">Copyright © <script>document.write(new Date().getFullYear());</script> Afribazaar Online Shop. All Rights Reserved.</p>
+            </div>
+            <div class="widget-body" style="margin-left: 50px">
+                {{-- <p class="widget-about-title">Got Question? Call us 24/7</p>
+                <a href="tel:18005707777" class="widget-about-call">1-800-570-7777</a>
+                <p class="widget-about-desc">Register now to get updates on pronot get up icons
+                    & coupons ster now toon.
+                </p> --}}
+
+                <div class="social-icons social-icons-colored">
+                    <a href="javascript:void(0)" class="social-icon social-facebook w-icon-facebook"></a>
+                    <a href="javascript:void(0)" class="social-icon social-twitter w-icon-twitter"></a>
+                    <a href="javascript:void(0)" class="social-icon social-instagram w-icon-instagram"></a>
+                    <a href="javascript:void(0)" class="social-icon social-youtube w-icon-youtube"></a>
+                    <a href="javascript:void(0)" class="social-icon social-pinterest w-icon-pinterest"></a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <span class="payment-label mr-lg-8">We're using safe payment for</span>
+                <figure class="payment">
+                    <img src="{{asset('front/assets/images/ssl-mobile.png')}}" alt="payment" width="350" height="25" />
+                </figure>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
 </div>
 <!-- End of Page Wrapper -->
 

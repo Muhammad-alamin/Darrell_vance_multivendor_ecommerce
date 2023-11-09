@@ -71,6 +71,14 @@ Route::middleware(['auth', 'admin','prevent-back-history'])->group(function (){
     Route::resource('admin/category', 'Admin\CategoryController');
     Route::get('admin/category/delete/{id}', 'Admin\CategoryController@deleteCat')->name('admin.category.delete');
 
+    //Service Category
+    Route::get('admin/service-category/create', 'Admin\ServiceCategory@create')->name('admin.service-category.create');
+    Route::post('admin/service-category/store', 'Admin\ServiceCategory@store')->name('admin.service-category.store');
+    Route::get('admin/service-category/list', 'Admin\ServiceCategory@index')->name('admin.service-category.index');
+    Route::get('admin/service-category/edit/{id}', 'Admin\ServiceCategory@edit')->name('admin.service-category.edit');
+    Route::put('admin/service-category/update/{id}', 'Admin\ServiceCategory@update')->name('admin.service-category.update');
+    Route::get('admin/service-category/delete/{id}', 'Admin\ServiceCategory@delete')->name('admin.service-category.delete');
+
     //Advertisement-banner
     Route::resource('advertisement-banner', 'Admin\BannerController');
     Route::get('advertisement-banner/delete/{id}', 'Admin\BannerController@deleteBanner')->name('advertisement-banner.delete');
@@ -105,6 +113,15 @@ Route::middleware(['auth', 'admin','prevent-back-history'])->group(function (){
     Route::put('admin/products/update/{id}', 'Admin\CreateProductController@update')->name('admin.products.update');
     Route::get('admin/Products/delete/{id}', 'Admin\CreateProductController@delete')->name('admin.products.delete');
     Route::get('admin/Products/details/{id}', 'Admin\CreateProductController@details')->name('admin.product.details');
+
+    //Create new services
+    Route::get('admin/service/create', 'Admin\ServiceController@create')->name('admin.service.create');
+    Route::post('admin/service/store', 'Admin\ServiceController@store')->name('admin.service.store');
+    Route::get('admin/service/list', 'Admin\ServiceController@index')->name('admin.service.index');
+    Route::get('admin/service/edit/{id}', 'Admin\ServiceController@edit')->name('admin.service.edit');
+    Route::put('admin/service/update/{id}', 'Admin\ServiceController@update')->name('admin.service.update');
+    Route::get('admin/service/delete/{id}', 'Admin\ServiceController@delete')->name('admin.service.delete');
+    Route::get('admin/service/details/{id}', 'Admin\ServiceController@details')->name('admin.service.details');
 
     //subscriber view
     Route::get('subscriber','Admin\SubscriberController@index')->name('admin.subscriber');
@@ -196,6 +213,19 @@ Route::middleware(['auth', 'admin','prevent-back-history'])->group(function (){
     Route::get('monthly/report','Admin\OrderController@monthlyReport')->name('monthly.report');
     Route::get('yearly/report','Admin\OrderController@yearlyReport')->name('yearly.report');
 
+    //Withdraw
+    Route::get('admin/withdraw','Admin\WithdrawController@index')->name('withdraw.index');
+    Route::get('admin/withdraw/edit/{id}','Admin\WithdrawController@withdrawEdit')->name('admin.withdrawl.edit');
+    Route::post('admin/withdraw/update/{id}','Admin\WithdrawController@withdrawUpdate')->name('admin.withdrawl.update');
+    Route::get('admin/withdraw/details/{id}','Admin\WithdrawController@withdrawDetails')->name('admin.withdrawl.details');
+
+    //customer Message
+    Route::get('admin/customer-message','Admin\CustomerMessageController@index')->name('admin.customerMessage');
+    Route::get('admin/send-message/customer/{id}','Admin\CustomerMessageController@show')->name('admin.sendMessage.customer');
+    Route::get('admin/message/details/{id}', 'Admin\CustomerMessageController@details')->name('admin.customerMessage.details');
+//    Route::get('customer/delete/{id}','Admin\CustomerMessageController@delete')->name('delete.customer.message');
+    Route::post( 'admin/customer-send-email','Admin\CustomerMessageController@sendEmail')->name('admin.customer.send.message');
+
 });
 
 
@@ -240,6 +270,15 @@ Route::middleware(['auth', 'vendor','prevent-back-history'])->group(function (){
     Route::get('vendor/products/delete/{id}', 'Vendor\ProductController@delete')->name('products.delete');
     Route::get('vendor/products/details/{id}', 'Vendor\ProductController@details')->name('vendor.product.details');
 
+    //Create new services
+    Route::get('vendor/service/create', 'Vendor\ServiceController@create')->name('vendor.service.create');
+    Route::post('vendor/service/store', 'Vendor\ServiceController@store')->name('vendor.service.store');
+    Route::get('vendor/service/list', 'Vendor\ServiceController@index')->name('vendor.service.index');
+    Route::get('vendor/service/edit/{id}', 'Vendor\ServiceController@edit')->name('vendor.service.edit');
+    Route::put('vendor/service/update/{id}', 'Vendor\ServiceController@update')->name('vendor.service.update');
+    Route::get('vendor/service/delete/{id}', 'Vendor\ServiceController@delete')->name('vendor.service.delete');
+    Route::get('vendor/service/details/{id}', 'Vendor\ServiceController@details')->name('vendor.service.details');
+
     //attributes
     Route::match(['get','post'], '/add/attributes/{id}','Vendor\AttributesController@addAttributes')->name('add.attributes');
     Route::get('/delete/attributes/{id}','Vendor\AttributesController@deleteAttribute')->name('delete.attributes');
@@ -268,6 +307,18 @@ Route::middleware(['auth', 'vendor','prevent-back-history'])->group(function (){
 
     //withdraw
     Route::get('pay-out/info','Vendor\WithdrawController@info')->name('vendor.payout.info');
+    Route::post('bank_info/store','Vendor\WithdrawController@store')->name('bank_info.store');
+    Route::get('bank_info/edit/{id}','Vendor\WithdrawController@edit')->name('bank_info.edit');
+    Route::post('bank_info/update/{id}','Vendor\WithdrawController@update')->name('bank_info.update');
+    Route::get('withdraw/create','Vendor\WithdrawController@withdrawCreate')->name('vendor.withdrawl.create');
+    Route::post('withdraw/store','Vendor\WithdrawController@withdrawRequestStore')->name('withdraw.request.store');
+    Route::get('withdraw','Vendor\WithdrawController@withdrawIndex')->name('vendor.withdrawl.index');
+    Route::get('withdraw/edit/{id}','Vendor\WithdrawController@withdrawEdit')->name('vendor.withdrawl.edit');
+    Route::post('withdraw/update/{id}','Vendor\WithdrawController@withdrawUpdate')->name('vendor.withdrawl.update');
+    Route::get('withdraw/details/{id}','Vendor\WithdrawController@withdrawDetails')->name('vendor.withdrawl.details');
+
+
+
 
 });
 
@@ -331,7 +382,8 @@ Route::get( '/ajax-cart-data','Front\CartController@ajaxCartDataTopNav');
 Route::post( '/del-charge-ajax','Front\CartController@ajaxDelCharge');
 
 //success route
-Route::get('success','Front\CheckoutController@success')->name('success');
+Route::get('success/{order}','Front\CheckoutController@success')->name('success');
+Route::get('cancel','Front\CheckoutController@cancel')->name('cancel');
 Route::get('online/payment','Front\CheckoutController@onlinePayment')->name('online_payment');
 
 //front cusstomer reg/login
@@ -351,6 +403,7 @@ Route::middleware('auth','prevent-back-history')->group(function (){
 //Product Search
 Route::match(['get','post'],'/search','Front\HomeController@search')->name('front.product.search');
 Route::get('/all-categories','Front\HomeController@categories')->name('all.categories');
+Route::get('/all-services','Front\HomeController@services')->name('all.services');
 Route::get('/all-brands','Front\HomeController@brands')->name('all.brands');
 Route::get('/single-brand/{id}','Front\HomeController@singleBrand')->name('single.brand');
 Route::post('/contact-vendor','Front\HomeController@contactVendor')->name('contact.vendor');
@@ -373,4 +426,12 @@ Route::post( '/register-ajax','Front\HomeController@register');
 
 //delete all cartItem
 Route::post('delete-all-cartItem','Front\CartController@delAllCartItem')->name('deleteAll.cartItem');
+
+//about-us
+Route::get('about/us','Front\HomeController@aboutUs')->name('aboutUs');
+
+//about-us
+Route::get('contact/us','Front\HomeController@contactPage')->name('contact');
+Route::post('contact/us','Front\HomeController@contactStore')->name('contact.store');
+
 

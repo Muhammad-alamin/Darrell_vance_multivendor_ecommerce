@@ -18,27 +18,28 @@ class AttributesController extends Controller
 //       return view('vendor.productAttributes.create',$data);
 //   }
 
-    public function addAttributes(Request $request, $id=null){
+    public function addAttributes(Request $request, $id = null)
+    {
 
 
         $productdetails['product'] = Product::with('attributes')->where(['id' => $id])->first();
-        if ($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $data = $request->all();
             // echo '<pre>'; print_r($data); die;
-            foreach ($data['product_sku'] as $key=>$val){
-                if(!empty($val)){
+            foreach ($data['product_sku'] as $key => $val) {
+                if (!empty($val)) {
                     //prevent Duplicate SKU record
-                    $attrCountSku = Attributes::where('attributes_sku',$val)->count();
-                    if($attrCountSku > 0 ){
-                        session()->flash('error','SKU is already exists Please Select another sku');
-                        return redirect('/admin/add/attributes/'.$id);
+                    $attrCountSku = Attributes::where('attributes_sku', $val)->count();
+                    if ($attrCountSku > 0) {
+                        session()->flash('error', 'SKU is already exists Please Select another sku');
+                        return redirect('/admin/add/attributes/' . $id);
                     }
 
                     //prevent Duplicate Size record
-                    $attrCountSize = Attributes::where(['product_id'=> $id , 'attributes_size'=>$data['product_size'][$key]])->count();
-                    if($attrCountSize > 0 ){
-                        session()->flash('error',''.$data['product_size'][$key].' '.'Size is already exists Please Select another Size');
-                        return redirect('/admin/add/attributes/'.$id);
+                    $attrCountSize = Attributes::where(['product_id' => $id, 'attributes_size' => $data['product_size'][$key]])->count();
+                    if ($attrCountSize > 0) {
+                        session()->flash('error', '' . $data['product_size'][$key] . ' ' . 'Size is already exists Please Select another Size');
+                        return redirect('/admin/add/attributes/' . $id);
                     }
                     $attribute = new Attributes();
                     $attribute->product_id = $id;
@@ -50,20 +51,22 @@ class AttributesController extends Controller
                     $attribute->save();
                 }
             }
-            session()->flash('success','Product Attributes added Successfully');
-            return redirect('/admin/add/attributes/'.$id);
+            session()->flash('success', 'Product Attributes added Successfully');
+            return redirect('/admin/add/attributes/' . $id);
 
         }
-        return view('admin.product_attributes.create',$productdetails);
+        return view('admin.product_attributes.create', $productdetails);
 
     }
 
-    public function editAttribute($id){
-        $data['attribute']= Attributes::find($id);
-        return view('admin.product_attributes.edit',$data);
+    public function editAttribute($id)
+    {
+        $data['attribute'] = Attributes::find($id);
+        return view('admin.product_attributes.edit', $data);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $newAttr = Attributes::find($id);
         $productId = $newAttr->product_id;
@@ -74,12 +77,13 @@ class AttributesController extends Controller
         $newAttr->attributes_price = $request->attributes_price;
         $newAttr->attributes_stock = $request->attributes_stock;
         $newAttr->save();
-        session()->flash('success','Attributes Updated Successfully');
-        return redirect()->route('admin.add.attributes',$productId);
+        session()->flash('success', 'Attributes Updated Successfully');
+        return redirect()->route('admin.add.attributes', $productId);
     }
 
-    public function deleteAttribute($id){
-        Attributes::where('id',$id)->delete();
+    public function deleteAttribute($id)
+    {
+        Attributes::where('id', $id)->delete();
         return redirect()->back();
     }
 }

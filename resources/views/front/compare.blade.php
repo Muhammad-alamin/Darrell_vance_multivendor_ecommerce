@@ -88,11 +88,11 @@
                             <div class="compare-col compare-value">
                                 <div class="product-price">
                                     @if($eachCompareProduct->product->product_discount_price == null)
-                                        <ins class="new-price">৳ {{number_format($eachCompareProduct->product->product_regular_price)}}</ins>
+                                        <ins class="new-price">£ {{number_format($eachCompareProduct->product->product_regular_price)}}</ins>
 
                                     @else
-                                        <ins class="new-price">৳ {{number_format($eachCompareProduct->product->product_discount_price)}}</ins>
-                                        <del class="old-price">৳ {{number_format($eachCompareProduct->product->product_regular_price)}}</del>
+                                        <ins class="new-price">£ {{number_format($eachCompareProduct->product->product_discount_price)}}</ins>
+                                        <del class="old-price">£ {{number_format($eachCompareProduct->product->product_regular_price)}}</del>
                                     @endif
                                 </div>
                             </div>

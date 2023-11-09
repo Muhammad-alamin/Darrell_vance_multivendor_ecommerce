@@ -20,7 +20,7 @@
                                         <div class="row align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Today Sale</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">৳ {{number_format($today_sale)}}</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">£ {{number_format($today_sale)}}</div>
                                                 <span class="text-success mr-2">including delivery charge</span>
                                                 <div class="mt-2 mb-0 text-muted text-xs">
                                                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>

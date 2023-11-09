@@ -85,6 +85,7 @@ class CartController extends Controller
                         'pro_price' => $data['pro_price'],
                         'pro_colour' => $colourArr[1],
                         'pro_size' => $sizeArr[1],
+                        'bran_commission_percentage' => 0,
                         'pro_quantity' => $data['quantity'],
                         'session_id' => $session_id]);
                     }
@@ -153,6 +154,7 @@ class CartController extends Controller
         Session::forget('CouponCode');
         if ($request->ajax()){
             $data = $request->all();
+            $b_commission = BrandCommission::where('brand_id',$data['brand_id'])->first();
 
             $session_id = Session::get('session_id');
             if (empty($session_id)){
@@ -174,15 +176,37 @@ class CartController extends Controller
                 return redirect()->back()->with('flash_message_error','stock not available');
             }
             else {
-                DB::table('carts')->insert(['pro_id' => $data['product_id'],
-                    'pro_name' => $data['product_name'],
-                    'brand_id' => $data['brand_id'],
-                    'category_id' => $data['category_id'],
-                    'pro_code' => $data['product_code'],
-                    'pro_price' => $data['product_price'],
-                    'pro_quantity' => $data['product_qty'],
-                    'session_id' => $session_id]);
-
+                if(isset($b_commission)){
+                    DB::table('carts')->insert(
+                        [
+                        'pro_id' => $data['product_id'],
+                        'pro_name' => $data['product_name'],
+                        'brand_id' => $data['brand_id'],
+                        'category_id' => $data['category_id'],
+                        'pro_code' => $data['product_code'],
+                        'pro_price' => $data['product_price'],
+                        'pro_quantity' => $data['product_qty'],
+                        'bran_commission_percentage' => $b_commission['percentage'],
+                        'session_id' => $session_id
+                        ]
+                    );
+                }
+                else
+                {
+                    DB::table('carts')->insert(
+                        [
+                            'pro_id' => $data['product_id'],
+                            'pro_name' => $data['product_name'],
+                            'brand_id' => $data['brand_id'],
+                            'category_id' => $data['category_id'],
+                            'pro_code' => $data['product_code'],
+                            'pro_price' => $data['product_price'],
+                            'pro_quantity' => $data['product_qty'],
+                            'bran_commission_percentage' => 0,
+                            'session_id' => $session_id
+                        ]
+                    );
+                }
 //            $cart['id'] =$data['pro_id']; // inique row ID
 //            $cart['name'] =$data['pro_name'];
 //            $cart['price'] =$data['pro_price'];

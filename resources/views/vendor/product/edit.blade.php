@@ -36,10 +36,10 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="form-label">Brand Name</label>
+                                                        <label class="form-label">Shop Name</label>
                                                         <div class="form-control-wrap">
                                                             <select class="form-select form-control form-control-lg" name="brand_id" id="brand_id" data-search="on">
-                                                                <option selected="" value="" name="brand_id">Select Brand Name</option>
+                                                                <option selected="" value="" name="brand_id">Select Shop Name</option>
                                                                 @foreach($brands as $key=>$brand)
                                                                     @if($brand->user_id == auth()->user()->id)
                                                                         <option  @if(old('brand_id',isset($product)?$product->brand_id:null)  == $brand->id) selected @endif value="{{$brand->id}}">{{$brand->brand_name}}</option>
@@ -222,7 +222,7 @@
                                             </div>
 
                                             @if (isset($product))
-                                                <img src="{{asset($product->product_thumbnail_image)}}" width="150px;">
+                                                <img src="{{asset('images/products/'. $product->product_thumbnail_image)}}" width="150px;">
                                             @endif
 
                                             <div class="row g-3 align-center">

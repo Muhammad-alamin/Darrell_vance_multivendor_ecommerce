@@ -131,11 +131,11 @@
                                             <div class="product-pa-wrapper">
                                                 <div class="product-price">
                                                     @if($eachProduct->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{number_format($eachProduct->product_regular_price * $single_campaign->discount /100)}}</ins>
-                                                        <del class="old-price">৳ {{number_format($eachProduct->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{number_format($eachProduct->product_regular_price * $single_campaign->discount /100)}}</ins>
+                                                        <del class="old-price">£ {{number_format($eachProduct->product_regular_price)}}</del>
                                                     @else
-                                                        <ins class="new-price">৳ {{number_format($eachProduct->product_discount_price * $single_campaign->discount /100)}}</ins>
-                                                        <del class="old-price">৳ {{number_format($eachProduct->product_discount_price)}}</del>
+                                                        <ins class="new-price">£ {{number_format($eachProduct->product_discount_price * $single_campaign->discount /100)}}</ins>
+                                                        <del class="old-price">£ {{number_format($eachProduct->product_discount_price)}}</del>
                                                     @endif
                                                 </div>
                                             </div>

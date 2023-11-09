@@ -187,7 +187,56 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-            <div class="title-link-wrapper pb-1 mb-4">
+            <br>
+            <h2 class="title title-center mb-5">Our Top Services</h2>
+            <div class="swiper-container swiper-theme shadow-swiper pb-10"
+                 data-swiper-options="{
+                 'loop': true,
+                    'autoplay': {
+                        'delay': 4000,
+                        'disableOnInteraction': false
+                    },
+                    'spaceBetween': 20,
+                    'slidesPerView': 2,
+                    'breakpoints': {
+                        '576': {
+                            'slidesPerView': 3
+                        },
+                        '768': {
+                            'slidesPerView': 4
+                        },
+                        '992': {
+                            'slidesPerView': 5
+                        },
+                        '1200': {
+                            'slidesPerView': 6
+                        }
+                    }
+                }">
+                <div class="swiper-wrapper row cols-xl-6 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                    @foreach($top_services as $category)
+                        <div class="swiper-slide category-wrap">
+                            <div class="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
+                                <a href="{{ route('category.product', encrypt($category->id)) }}" class="category-media">
+                                    <img src="{{$category->category_image}}" alt="Category"
+                                         style="width: 190px; height: 184px;">
+                                </a>
+                                <br>
+                                <div class="category-content">
+                                    <h4 class="category-name">{{$category->category_name}}</h4>
+                                    <a href="{{ route('category.product', encrypt($category->id)) }}"
+                                       class="btn btn-primary btn-link btn-underline">Shop
+                                        Now</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    <!-- End of Category Classic -->
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            {{-- <div class="title-link-wrapper pb-1 mb-4">
                 <h2 class="title justify-content-center pt-1 ls-normal mb-5">Top Brand</h2>
                 <a href="{{route('all.brands')}}" class="font-size-normal  ls-25 mb-0">More
                     Brand<i class="w-icon-long-arrow-right"></i></a>
@@ -228,7 +277,7 @@
                     </div>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
 {{--            <section class=" top-category appear-animate">--}}
 {{--                <div class="store store-list mt-4">--}}
 {{--                    <div class="store-header">--}}
@@ -268,7 +317,7 @@
                         <h2 class="title">Featured Products</h2>
                         <a href="{{route('front.shop')}}">More Products<i class="w-icon-long-arrow-right"></i></a>
                     </div>
-                    <div class="tab-content product-wrapper appear-animate bg-grey">
+                    <div class="tab-content product-wrapper appear-animate">
                         <div class="tab-pane active pt-4" id="tab1-1">
                             <div class="row cols-xl-5 cols-md-4 cols-sm-3 cols-2">
                                 @foreach($featured_products as $product)
@@ -375,10 +424,10 @@
                                                 </div>
                                                 <div class="product-price">
                                                     @if($product->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($product->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($product->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
 
@@ -400,7 +449,7 @@
                         <h2 class="title">Best Selling </h2>
                         <a href="{{route('front.shop')}}">More Products<i class="w-icon-long-arrow-right"></i></a>
                     </div>
-                    <div class="tab-content product-wrapper appear-animate bg-grey">
+                    <div class="tab-content product-wrapper appear-animate">
                         <div class="tab-pane active pt-4" id="tab1-1">
                             <div class="row cols-xl-5 cols-md-4 cols-sm-3 cols-2">
                                 @foreach($best_selling_products as $product)
@@ -507,10 +556,10 @@
                                                 </div>
                                                 <div class="product-price">
                                                     @if($product->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($product->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($product->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
 
@@ -532,7 +581,7 @@
                         <h2 class="title">Popular Products</h2>
                         <a href="{{route('front.shop')}}">More Products<i class="w-icon-long-arrow-right"></i></a>
                     </div>
-                    <div class="tab-content product-wrapper appear-animate bg-grey">
+                    <div class="tab-content product-wrapper appear-animate">
                         <div class="tab-pane active pt-4" id="tab1-1">
                             <div class="row cols-xl-5 cols-md-4 cols-sm-3 cols-2">
                                 @foreach($popular_products as $product)
@@ -639,10 +688,10 @@
                                                 </div>
                                                 <div class="product-price">
                                                     @if($product->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($product->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($product->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
 
@@ -801,10 +850,10 @@
                                                 </div>
                                                 <div class="product-price">
                                                     @if($product->product_discount_price == null)
-                                                        <ins class="new-price">৳ {{ number_format($product->product_regular_price) }}</ins>
+                                                        <ins class="new-price">£ {{ number_format($product->product_regular_price) }}</ins>
                                                     @else
-                                                        <ins class="new-price">৳ {{ number_format($product->product_discount_price )}}</ins>
-                                                        <del class="old-price">৳ {{number_format($product->product_regular_price)}}</del>
+                                                        <ins class="new-price">£ {{ number_format($product->product_discount_price )}}</ins>
+                                                        <del class="old-price">£ {{number_format($product->product_regular_price)}}</del>
                                                     @endif
                                                 </div>
 

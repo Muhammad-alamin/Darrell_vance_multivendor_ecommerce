@@ -28,11 +28,11 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label" for="default-06">Brand Name</label>
+                                                <label class="form-label" for="default-06">Shop Name</label>
                                                 <div class="form-control-wrap ">
                                                     <div class="form-control-select">
                                                         <select class="form-control" name="brand_id" id="brand_id">
-                                                            <option selected="" disabled="" >Select Brand</option>
+                                                            <option selected="" disabled="" >Select Shop</option>
                                                         </select>
                                                         @error('brand_id')<i class="text-danger">{{$message}}</i>@enderror
                                                     </div>

@@ -31,8 +31,8 @@
                                                 <div class="col-lg-10">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <label for="name" class="form-label">Brand Name</label>
-                                                            <input type="text" class="form-control" name="brand_id" id="title" disabled value="{{$brandListCommission->brand->brand_name}}" placeholder="Enter brand name here">
+                                                            <label for="name" class="form-label">Shop Name</label>
+                                                            <input type="text" class="form-control" name="brand_id" id="title" disabled value="{{$brandListCommission->brand->brand_name}}" placeholder="Enter Shop name here">
                                                             @error('brand_id')<i class="text-danger">{{$message}}</i>@enderror
                                                         </div>
                                                     </div>

@@ -31,10 +31,10 @@
 
 
                                                             <div class="form-group">
-                                                                <label class="form-label">Brand Name</label>
+                                                                <label class="form-label">Shop Name</label>
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select form-control form-control-lg" name="brand_id" id="brand_id" data-search="on">
-                                                                        <option selected="" value="" name="brand_id">Select Brand Name</option>
+                                                                        <option selected="" value="" name="brand_id">Select Shop Name</option>
                                                                         @foreach($brands as $key=>$brand)
                                                                             @if($brand->user_id == auth()->user()->id)
                                                                             <option  value="{{$brand->id}}">{{$brand->brand_name}}</option>
